@@ -281,11 +281,35 @@ document.addEventListener('DOMContentLoaded', async () => {
     function buildGuidePrompt(taskName, taskDescription, groupMembers) {
         const desc = taskDescription && taskDescription.trim().length > 0 ? taskDescription.trim() : '(no detailed description provided)';
         const members = groupMembers.join(', ');
-        return `You are an expert technical assistant. Create a concise, actionable guide in Markdown (10 to 15 sentences) to help complete the task below. Create a guide for beginners. Give tips on how to research and find tutorial resources. Create and prioritize muscle memory exercises. Avoid filler. If relevant, include one short code block or command snippet. Do not exceed 15 sentences.
+        return `You are a technical documentation expert. Create a step-by-step KB (Knowledge Base) article to help complete the task below.
+
+Format your response EXACTLY like this structure:
+## Overview
+[Brief 1-2 sentence summary of what will be accomplished]
+
+## Prerequisites
+- [List any required tools, access, or knowledge]
+
+## Steps
+### Step 1: [Action Title]
+[Clear instruction on what to do]
+
+### Step 2: [Action Title]
+[Clear instruction on what to do]
+
+[Continue with numbered steps as needed]
+
+## Verification
+[How to confirm the task was completed successfully]
+
+## Additional Resources
+- [Link to documentation or tutorial if applicable]
 
 Task: ${taskName}
 Assigned to: ${members}
-Task details: ${desc}`;
+Task details: ${desc}
+
+Keep it concise (10-15 steps maximum). Include command examples in code blocks where relevant.`;
     }
 
     async function fetchOllamaGuideForAssignment(assignment) {
@@ -472,12 +496,8 @@ Task details: ${desc}`;
                                 }
                             }
                             
-                            // Update display with cleaned text
-                            const safe = displayText
-                                .replace(/&/g, '&amp;')
-                                .replace(/</g, '&lt;')
-                                .replace(/>/g, '&gt;');
-                            ollamaResponse.innerHTML = safe;
+                            // Update display with cleaned text as Markdown
+                            ollamaResponse.innerHTML = converter.makeHtml(displayText);
                         }
                     } catch (e) {
                         // Ignore partial/invalid JSON lines; they will complete on next chunk
@@ -509,11 +529,8 @@ Task details: ${desc}`;
                             }
                         }
                         
-                        const safe = displayText
-                            .replace(/&/g, '&amp;')
-                            .replace(/</g, '&lt;')
-                            .replace(/>/g, '&gt;');
-                        ollamaResponse.innerHTML = safe;
+                        // Final render as Markdown
+                        ollamaResponse.innerHTML = converter.makeHtml(displayText);
                     }
                 } catch (_) {
                     // ignore
