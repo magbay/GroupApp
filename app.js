@@ -37,9 +37,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         parseImgDimensions: true
     });
 
-    // Simple wrapper that just uses showdown
+    // Display as plain text without markdown conversion
     function formatWithCodeBlocks(text) {
-        return converter.makeHtml(text);
+        // Escape HTML and preserve line breaks
+        const escaped = text
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/\n/g, '<br>');
+        return escaped;
     }
 
     const renderNames = () => {
