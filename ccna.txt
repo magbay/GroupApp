@@ -1,0 +1,100 @@
+OSI Model(1) : practice matching protocols to the 7 OSI layers 
+TCP/IP Model(2) : practice comparing the TCP/IP model to the OSI model 
+Cabling(3) : practice identifying crossover vs. straight-through Ethernet cables 
+IPv4 Subnetting(4) : practice subnetting a /24 network into smaller /28 networks 
+IPv6 Addresses(5) : practice identifying IPv6 unicast, multicast, and anycast addresses 
+Console Access(6) : practice connecting to a switch or router via a console cable 
+Basic Config(7) : practice setting a device hostname and enabling a secret password 
+Interface Status(8) : use 'show ip interface brief' to check interface status 
+VLANs(9) : practice creating and naming a new VLAN on a switch 
+Access Ports(10) : practice assigning a switch port to a specific VLAN 
+Trunk Ports(11) : practice configuring an interface as an 802.1Q trunk 
+Port Security(12) : practice configuring basic port security to allow one MAC address 
+Save Config(13) : practice copying the running-config to the startup-config 
+Router Interface(14) : practice assigning an IPv4 address and subnet mask to a router interface 
+Static Route(15) : practice configuring a default static route (0.0.0.0/0) 
+Static Route(16) : practice configuring a static route to a specific destination network 
+OSPF(17) : practice enabling OSPFv2 using a process ID and router ID 
+OSPF(18) : practice advertising networks using the OSPF 'network' command 
+OSPF Neighbors(19) : practice using 'show ip ospf neighbor' to verify adjacencies 
+Inter-VLAN Routing(20) : practice configuring router-on-a-stick on a router interface 
+DHCP Server(21) : practice configuring a router as a DHCP server for a LAN 
+DHCP Exclusions(22) : practice excluding specific IP addresses from a DHCP pool 
+DHCP Relay(23) : practice configuring the 'ip helper-address' command 
+NAT(24) : practice configuring static NAT to map an inside address to an outside address 
+PAT(25) : practice configuring dynamic NAT (PAT/Overload) using an ACL 
+NTP(26) : practice configuring a device to synchronize time with an NTP server 
+Standard ACL(27) : practice creating a standard numbered ACL to permit a host 
+Extended ACL(28) : practice creating an extended named ACL to block a specific port 
+Apply ACL(29) : practice applying an ACL to an interface in the inbound or outbound direction 
+SSH Setup(30) : practice configuring a router for secure SSH access (username, domain, crypto keys) 
+Password Security(31) : practice using the 'service password-encryption' command 
+Port Security(32) : practice setting the port security violation mode to 'shutdown' 
+CDP(33) : practice using 'show cdp neighbors' to discover adjacent Cisco devices 
+LLDP(34) : practice using 'show lldp neighbors' to discover adjacent multi-vendor devices 
+WLAN(35) : practice identifying the components of a basic WLAN (AP, WLC, SSID) 
+Telnet(36) : practice configuring vty lines for basic telnet access and setting a password 
+Ping(37) : practice using 'ping' to test Layer 3 end-to-end connectivity 
+Traceroute(38) : practice using 'traceroute' to identify the path to a destination 
+Config Backup(39) : practice backing up a device configuration to a TFTP server 
+System Logs(40) : practice using 'show logging' to view system log messages
+VLAN Trunking(41) : configure and verify VLAN trunking and native VLAN behavior
+Inter-switch Links(42) : configure and verify LACP link aggregation between switches
+STP Basics(43) : inspect spanning-tree status and root bridge election
+STP Debug(44) : manipulate port costs to change spanning-tree path selection (lab)
+PVST(45) : compare PVST vs RPVST and observe per-VLAN STP instances
+EtherChannel(46) : configure an EtherChannel and verify port-channel status
+VTP Basics(47) : review VLAN Trunking Protocol modes and their implications
+DHCP Troubleshoot(48) : troubleshoot DHCP lease issues using debug and show commands
+NAT Types(49) : compare static NAT, dynamic NAT, and PAT and configure examples
+ACL Troubleshoot(50) : inspect and fix a misapplied ACL blocking traffic
+Access Control(51) : apply an ACL to VTY lines to restrict management access
+SNMP Basics(52) : configure SNMPv2c community strings and test with snmpwalk
+SNMP Security(53) : discuss SNMPv3 advantages and configure a user (lab)
+QoS Intro(54) : classify traffic and apply basic QoS shaping/policing on an interface
+QoS Marking(55) : mark packets with DSCP values and verify with show commands
+IP SLA(56) : configure IP SLA for reachability and track objects on a router
+NTP Troubleshoot(57) : verify NTP status and troubleshoot asymmetric time sources
+Syslog Config(58) : configure remote syslog to send logs to a log server
+SSH Hardening(59) : configure SSH timeouts, ciphers, and key exchange algorithms
+Password Policies(60) : configure local user password policies and login banners
+Backup Automation(61) : script saving and transferring running-config to a backup server
+Interface Description(62) : add clear interface descriptions for documentation
+CDP Troubleshoot(63) : use CDP to discover neighbors and resolve mismatched duplex issues
+LLDP Use(64) : enable LLDP and compare neighbor output to CDP (multi-vendor)
+VLAN Pruning(65) : configure VLAN pruning on trunks to limit unnecessary VLANs
+Router-on-a-stick(66) : implement inter-VLAN routing using subinterfaces on a trunk port
+VRF Basics(67) : overview VRF concepts and create a simple VRF instance (lab)
+Static Route Types(68) : configure floating static routes with administrative distance
+Dynamic Routing Neighbors(69) : inspect and troubleshoot OSPF adjacency issues
+OSPF Areas(70) : design and configure OSPF area types and area summarization
+OSPF Authentication(71) : configure OSPF authentication and verify neighbor status
+EIGRP Basics(72) : configure EIGRP and verify neighbors and routes (lab)
+EIGRP Metrics(73) : analyze EIGRP metric calculation and manipulate K-values (lab)
+Route Redistribution(74) : redistribute routes between OSPF and EIGRP and filter appropriately
+BGP Intro(75) : understand BGP path attributes and establish a basic IBGP/EBGP session
+BGP Filtering(76) : apply prefix-lists, route-maps, and AS-path filters to control advertisements
+Route Summarization(77) : configure summarization for connected or learned routes
+Policy-based Routing(78) : configure PBR to route specific traffic via an alternate path
+Multicast Basics(79) : explain IGMP and PIM sparse vs dense-mode differences
+Multicast Troubleshoot(80) : verify multicast source/receiver setup and RPF checks
+IPsec VPN(81) : configure a simple site-to-site IPsec tunnel and verify SA status
+GRE Tunnel(82) : configure a GRE tunnel and verify reachability through the tunnel
+DMVPN Intro(83) : overview DMVPN components and verify NHRP mappings (theory)
+HSRP Basics(84) : configure and test HSRP redundancy between two routers
+HSRP Tracking(85) : implement object tracking to influence HSRP priority
+VRRP Intro(86) : compare VRRP and HSRP and configure a basic VRRP instance
+GLBP Intro(87) : discuss GLBP behavior and configure a simple GLBP group
+Network Addressing(88) : plan IPv4 addressing for a small office with subnets and hosts
+IPv6 Basics(89) : enable IPv6 on interfaces and configure static IPv6 addresses
+IPv6 OSPFv3(90) : configure OSPFv3 for IPv6 routing and verify neighbor relationships
+IPv6 ACLs(91) : create IPv6 ACLs and apply them to interfaces for filtering
+IPv6 Transition(92) : discuss and lab basic NAT64 or dual-stack approaches
+Wireless Basics(93) : identify SSID, encryption types, and basic WLAN design considerations
+Wireless Troubleshoot(94) : use show commands to verify AP and client associations
+Network Automation(95) : demonstrate saving and pushing a config via NETCONF/RESTCONF (lab)
+Ansible Intro(96) : write a simple Ansible playbook to push an interface description
+Controller-based WLAN(97) : overview controller/AP architecture and move an AP to a controller
+Network Diagrams(98) : draw a basic network diagram for a provided topology
+Troubleshooting Workflow(99) : follow a structured troubleshooting methodology on a mock outage
+Final Review(100) : combine configuration, backup, and verification steps into a short lab exercise

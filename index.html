@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Task Assigner</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
+</head>
+<body>
+    <div class="app-header">
+        <h1>GroupApp • Task & AI Assistant</h1>
+    </div>
+    <div class="container">
+        <div class="layout-row">
+            <div class="panel">
+                <h2>Add a Name</h2>
+                <form id="name-form" class="form-inline">
+                    <input type="text" id="name-input" placeholder="Enter a name" required>
+                    <button type="submit">Add Name</button>
+                </form>
+                <h2>Names</h2>
+                <ul id="name-list" class="scroll-list"></ul>
+            </div>
+            <div class="panel">
+                <h2>Tasks</h2>
+                <div class="tabs">
+                    <button class="tab-btn" data-file="ccna.txt">CCNA</button>
+                    <button class="tab-btn active" data-file="linux.txt">Linux</button>
+                    <button class="tab-btn" data-file="sysadmin.txt">Sysadmin</button>
+                </div>
+                <ul id="task-list" class="scroll-list"></ul>
+                <p class="hint">Edit tasks by modifying <code>ccna.txt</code>, <code>linux.txt</code>, or <code>sysadmin.txt</code> (format: Task Name: description)</p>
+            </div>
+            <div class="panel ai-panel">
+                <h2>Ask Ollama</h2>
+                <textarea id="ollama-input" placeholder="Ask a question..."></textarea>
+                <div class="ai-actions">
+                    <button id="ollama-button">Submit</button>
+                </div>
+                <div id="ollama-response"></div>
+            </div>
+        </div>
+        <div class="layout-row">
+            <div class="panel full-width">
+                <div class="actions-bar">
+                    <div class="controls">
+                        <label for="group-size">Group size</label>
+                        <input id="group-size" type="number" min="1" max="10" value="2" />
+                        <label class="checkbox">
+                            <input id="unique-tasks" type="checkbox" /> Unique tasks only
+                        </label>
+                    </div>
+                    <div class="buttons">
+                        <button id="random-button" class="primary-action">Assign Random Tasks</button>
+                        <button id="clear-results" type="button">Clear Results</button>
+                        <button id="export-results" type="button">Copy Result</button>
+                    </div>
+                </div>
+                <div id="result-section">
+                    <h2>Result</h2>
+                    <div id="result"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="task-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Task Description</h2>
+            <textarea id="task-description" placeholder="Enter task description in Markdown format..."></textarea>
+            <button id="save-task-description">Save</button>
+        </div>
+    </div>
+
+    <div id="result-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Task Description</h2>
+            <div id="result-task-description"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

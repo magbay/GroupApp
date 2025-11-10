@@ -1,0 +1,104 @@
+(User Management(1) : create users, configure shells, and set password aging policies
+Group Management(2) : create groups, add users to groups, and use newgrp to test
+Sudoers(3) : configure limited sudo privileges for specific commands via visudo
+Service Management(4) : manage services with systemctl (start/stop/enable/status)
+Logging Basics(5) : configure rsyslog or syslog-ng to collect system logs
+Journalctl Usage(6) : query journalctl with filters and persistent journal settings
+Log Rotation(7) : configure logrotate for an application and test rotation
+Monitoring Basics(8) : install and configure a basic Prometheus node exporter
+Alerting(9) : create an alert rule in Prometheus and fire an alert (test)
+Grafana Dashboards(10) : build a Grafana dashboard displaying CPU, memory, and disk
+Resource Limits(11) : configure ulimits for a service via systemd unit
+Process Supervision(12) : use systemd service templates and restart strategies
+Backup Strategy(13) : plan a daily incremental, weekly full backup scheme
+Backup Tools(14) : use rsync, borg, or restic to perform backups and restores
+Disk Management(15) : partition, format, and mount volumes safely (lab)
+LVM Advanced(16) : manage volume groups, snapshots, and thin provisioning
+Filesystem Tools(17) : run fsck and repair a corrupted ext4 filesystem (lab)
+RAID Basics(18) : configure software RAID with mdadm and test degraded mode
+Storage Performance(19) : use fio to benchmark disk throughput and latency
+Network Configuration(20) : configure /etc/network/interfaces or NetworkManager profiles
+DNS Management(21) : configure BIND or dnsmasq for internal name resolution
+DHCP Server(22) : set up a DHCP server with reservations and options
+Proxy Caching(23) : deploy and configure squid as a caching proxy
+Reverse Proxy(24) : set up nginx as a reverse proxy with TLS termination
+TLS Certificates(25) : obtain and renew certificates with certbot (Let's Encrypt)
+Service Discovery(26) : implement service registry concepts or use Consul (lab)
+Configuration Management(27) : write a simple Ansible playbook to install and configure a service
+Idempotent Automation(28) : ensure playbooks are idempotent and handle errors
+Secrets Management(29) : secure sensitive values with Vault or Ansible Vault
+CI/CD Basics(30) : create a pipeline to deploy app artifacts to a test host
+Containerization(31) : build a Dockerfile and run a container with resource limits
+Orchestration Intro(32) : deploy a minimal Podman Compose or Docker Compose stack
+Kubernetes Basics(33) : deploy a simple nginx Deployment and Service in k8s (minikube)
+Pod Debugging(34) : use kubectl logs and exec to troubleshoot a failing pod
+Service Mesh Intro(35) : overview service mesh (Linkerd/istio) concepts (theory)
+Load Balancing(36) : configure round-robin and health checks with HAProxy
+High Availability(37) : set up a pair of load balancers with VRRP (keepalived)
+Incident Response(38) : run a tabletop incident response drill and document steps
+On-call Playbook(39) : write an on-call escalation and runbook for a common outage
+Root Cause Analysis(40) : conduct RCA after an incident and write a postmortem
+Capacity Planning(41) : estimate required capacity and plan scaling steps
+Autoscaling(42) : implement autoscaling rules for VM or container workloads
+Cost Monitoring(43) : track resource costs and build a cost-aware dashboard
+Authentication(44) : integrate systems with LDAP or Active Directory
+Authorization(45) : implement RBAC for services and centralize access control
+Single Sign-On(46) : configure SSO with SAML or OIDC for internal apps
+Encryption at Rest(47) : enable filesystem-level encryption or disk encryption
+Disk Encryption(48) : configure LUKS and test unlocking at boot (lab)
+Network Encryption(49) : enforce TLS for services and test with openssl s_client
+Firewall Policies(50) : implement host-based firewall rules with nftables/ufw
+Network Segmentation(51) : design VLANs and ACLs for segmentation and security
+VPN Setup(52) : deploy and test an OpenVPN or WireGuard server for remote access
+Secrets Rotation(53) : implement periodic rotation of secrets and keys
+Patch Management(54) : automate security updates and test patch rollouts
+Vulnerability Scanning(55) : run a vulnerability scanner and triage results
+Service Hardening(56) : minimize attack surface by disabling unused services
+SELinux/AppArmor(57) : configure and troubleshoot SELinux/AppArmor enforced policies
+Auditd(58) : set up auditd rules to track privileged actions and review logs
+Immutable Infrastructure(59) : discuss benefits and implement image-based deployments
+Blue-Green Deploy(60) : implement a blue-green deployment flow for a web service
+Canary Release(61) : implement canary routing and monitor metrics for rollout
+Database Backup(62) : perform consistent logical and physical database backups
+Database Restore(63) : test database restores to verify backup integrity
+Connection Pooling(64) : configure and monitor database connection pools
+Caching Strategy(65) : design and configure caching (Redis/memcached) to reduce DB load
+Log Aggregation(66) : centralize logs into ELK/EFK stack or Loki and query logs
+Tracing(67) : instrument an app with distributed tracing (Jaeger/Zipkin)
+Synthetic Monitoring(68) : add synthetic checks and uptime tests for critical endpoints
+Real User Monitoring(69) : capture front-end telemetry for performance monitoring
+Alert Tuning(70) : reduce alert noise by tuning thresholds and grouping alerts
+Runbook Automation(71) : automate common remediation steps for alerts
+Chaos Engineering(72) : run controlled failure experiments and learn from results
+Service Level Objectives(73) : define SLOs and convert them into alerting rules
+Error Budgeting(74) : implement error budget policies and monthly review cadence
+Service Mesh Observability(75) : observe microservice latencies and retries
+Network QoS(76) : configure QoS to prioritize critical traffic classes
+Backup Verification(77) : automate restores to verify backups regularly
+DR Planning(78) : prepare a disaster recovery plan and RTO/RPO goals
+Failover Testing(79) : test failover procedures for critical services and record results
+Immutable Logs(80) : ensure log integrity and tamper-evident storage
+Configuration Drift(81) : detect drift with periodic audits and enforce baseline
+Secretless Access(82) : use ephemeral credentials or IAM roles for cloud access
+Cloud Provisioning(83) : provision VMs with IaC (Terraform) and manage state
+Image Hardening(84) : bake secure images with minimal packages and updates
+Network Observability(85) : use flow logs and netflow exporters to analyze traffic
+Service Dependency Mapping(86) : map service dependencies and visualize the graph
+Autoscale Simulation(87) : simulate load to validate autoscaling behavior
+Maintenance Windows(88) : schedule maintenance and notify stakeholders via automation
+Configuration Testing(89) : test changes in a staging environment with CI gates
+Endpoint Security(90) : deploy and manage EDR/antivirus agents centrally
+Credential Management(91) : run credential audits and remove stale credentials
+Compliance Checks(92) : automate compliance scans (CIS benchmarks)
+Resource Tagging(93) : enforce resource tags and use for cost allocation
+Policy as Code(94) : write policies (Open Policy Agent) to enforce infra rules
+Incident Postmortem(95) : run a blameless postmortem and publish action items
+Metrics Retention(96) : configure retention and downsampling for metrics
+Tooling Integration(97) : integrate monitoring, alerting, and ticketing systems
+Runbook On-call(Hold)(98) : validate on-call rotation and escalate simulated incidents
+SRE Maturity(99) : review SRE practices and identify next improvements
+Final Practice Lab(100) : run a full SRE lab: deploy, monitor, fail, restore, and document)
+Ansible Setup(1) : Research and install ansible
+Jupyter Notebook(2) : Research and install Jupyter notebook
+Proxy Server(3) : Reserach and install linux proxy server in Ubuntu
+Linux Hardening(4) : Harden a linux server , Ubuntu or Rhel.

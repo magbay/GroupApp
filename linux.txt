@@ -1,0 +1,100 @@
+File Navigation(1) : practice using ls and cd to move between directories 
+File Management(2) : use mkdir to create a new directory and touch to create a new file 
+Text Editing(3) : practice opening, editing, and saving a file with nano 
+File Permissions(4) : use ls -l to view permissions and chmod to make a script executable 
+Package Management(5) : practice installing a program using apt install or dnf install 
+System Monitoring(6) : use top or htop to see currently running processes 
+File Viewing(7) : practice using less to read a long log file 
+Text Searching(8) : use grep to find a specific word inside a configuration file 
+User Management(9) : practice using whoami to see the current user and su to switch users 
+System Information(10) : use df -h to check available disk space 
+Networking(11) : practice using ping to check connectivity to a website 
+File Management(12) : practice using cp to copy a file and mv to rename a file 
+Process Management(13) : learn to find a process ID with ps aux and stop it with kill 
+Archiving(14) : practice creating a .tar.gz archive with tar -czvf 
+Extraction(15) : practice extracting a .tar.gz archive with tar -xzvf 
+Finding Files(16) : use find to locate a file by its name in the system 
+Command History(17) : use the history command to see your previous commands 
+Command Help(18) : practice using man to read the manual page for a command 
+File Deletion(19) : use rm to delete a file and rm -r to delete a directory 
+Network Info(20) : use ip addr or ifconfig to find your system's IP address 
+Running in Background(21) : practice adding & to the end of a command to run it in the background 
+Symbolic Links(22) : use ln -s to create a symbolic link (shortcut) to a file Output 
+Redirection(23) : practice using > to redirect command output to a new file Output 
+Appending(24) : practice using >> to append command output to an existing file 
+Piping(25) : practice using | to send the output of one command as input to another 
+Environment Variables(26) : use echo $PATH to view the system path variable 
+File Download(27) : practice using wget or curl -O to download a file from the internet 
+System Logs(28) : use tail -f /var/log/syslog to watch a log file in real-time 
+Service Management(29) : practice using systemctl status to check the status of a service 
+Service Management(30) : use systemctl start and systemctl stop to manage a service 
+System Updates(31) : practice running apt update or dnf check-update to refresh package lists 
+System Upgrades(32) : practice running apt upgrade or dnf upgrade to apply new updates 
+Root Privileges(33) : practice using sudo before a command to run it as the root user 
+File Content(34) : use cat to display the entire contents of a short file 
+Directory Location(35) : use pwd to print the full path of your current working directory 
+Disk Usage(36) : use du -sh in a directory to see its total size 
+Text Processing(37) : practice using head and tail to view the beginning or end of a file 
+Word Count(38) : use wc -l to count the number of lines in a file 
+Remote Connection(39) : practice using ssh to securely log in to another Linux machine 
+System Shutdown(40) : practice using shutdown now or reboot to turn off or restart the system
+Package Search(41) : use apt search or dnf search to find packages by name or keyword
+Inspect Process Tree(42) : use pstree or ps -ef --forest to view parent/child process relationships
+Disk Partitioning(43) : practice creating a partition using fdisk or parted (non-destructive lab)
+Create Filesystem(44) : practice using mkfs.ext4 to create a filesystem on a test partition
+Mounting Filesystems(45) : practice mounting and unmounting with mount and umount
+Persistent Mounts(46) : add an entry to /etc/fstab and test mounting on boot (lab only)
+Swap Management(47) : create and enable a swap file using fallocate+mkswap+swapon
+LVM Basics(48) : create a physical volume, volume group, and logical volume using LVM
+Resize LVM(49) : extend a logical volume and resize the filesystem (ext4/xfs workflow)
+Disk SMART(50) : use smartctl -a to check disk health and interpret SMART attributes
+Process Niceness(51) : use nice to start a process with lower priority and renice to change it
+Log Rotation(52) : inspect /etc/logrotate.d and run logrotate -d for a config
+Journalctl(53) : use journalctl -u sshd to view service logs and --since/--until filters
+Kernel Info(54) : use uname -r and dmesg | head to view kernel version and boot messages
+Module Management(55) : use lsmod, modprobe, and rmmod to inspect and manage kernel modules
+Network Ports(56) : use ss -ltnp or netstat -tulpn to list listening ports and owning processes
+Firewall Basics(57) : use firewall-cmd or ufw to open and close a port and verify connectivity
+Hostnames(58) : use hostnamectl set-hostname to change the system hostname and verify
+Time Sync(59) : use timedatectl and chrony/ntpctl to check and configure time synchronization
+User Creation(60) : create a new user with useradd, set a password, and create a home directory
+Group Management(61) : add a user to a group with usermod -aG and verify with groups
+Sudoers(62) : add a sudo rule with visudo for a specific command for a user
+SSH Key Auth(63) : generate an SSH keypair and install the public key in ~/.ssh/authorized_keys
+SSH Agent Forwarding(64) : practice using ssh-agent and forwarding keys securely
+Secure SSH(65) : disable root login and password auth in /etc/ssh/sshd_config and restart sshd
+Cron Jobs(66) : create a cron job with crontab -e to run a script every minute (test script)
+At Jobs(67) : schedule a one-time job using at and verify it ran
+Systemctl Enable(68) : enable a service to start at boot with systemctl enable
+Systemctl Mask(69) : mask a service to prevent it from being started by dependencies
+Emergency Mode(70) : boot into emergency or single-user mode (lab/safe environment)
+Bootloader(71) : inspect GRUB config and update grub (do not write to production bootloader)
+Chroot Rescue(72) : use chroot to repair a mounted root filesystem from a rescue environment
+Network Troubleshooting(73) : use traceroute and mtr to diagnose routing problems
+Packet Capture(74) : use tcpdump to capture packets on an interface and filter by host/port
+ARP Troubleshooting(75) : inspect ARP cache with ip neigh and clear entries
+Routing Table(76) : use ip route to inspect and add a temporary route for testing
+Name Resolution(77) : use dig and nslookup to troubleshoot DNS resolution
+Bind Mounts(78) : use mount --bind to share a directory to another location
+NFS Client(79) : mount an NFS export and list files as a normal user
+Samba Client(80) : use smbclient or mount.cifs to access a Samba share
+Secure Copy(81) : use scp or rsync over ssh to copy files between hosts efficiently
+Rsync Backup(82) : use rsync -av --delete to mirror a directory to a backup location
+Compression Tools(83) : practice gzip, bzip2, and xz compression and decompression
+Process Debugging(84) : use strace -p on a running process to see system calls (lab)
+Open Files(85) : use lsof to find which process has a file or port open
+Environment Profiles(86) : set variables in /etc/profile or ~/.bashrc and reload the shell
+Bash Scripting(87) : write a small bash script that takes args and uses exit codes
+Parameter Expansion(88) : practice ${VAR:-default} and ${VAR%%pattern} expansions in bash
+Sed Basics(89) : use sed to perform in-place replacements in configuration files (backup first)
+Awk Basics(90) : use awk to extract columns from space-delimited output (e.g., ps aux)
+Regex Practice(91) : use grep -E or egrep with a regex to match complex patterns
+Permissions Advanced(92) : practice setuid, setgid, and sticky bit on temporary files (lab)
+ACLs(93) : use getfacl and setfacl to set fine-grained file permissions for users/groups
+SELinux Check(94) : use getenforce and restorecon to view/set SELinux contexts (lab)
+AppArmor(95) : list AppArmor profiles and put a profile into complain mode for testing
+Kernel Params(96) : use sysctl -a and sysctl -w to view and change kernel settings temporarily
+Ulimit(97) : use ulimit -n and other limits to view/change resource limits for a shell
+Container Basics(98) : install and run a simple container with docker or podman and inspect it
+System Performance(99) : use iostat, vmstat, and sar to gather system performance metrics
+Troubleshooting Checklist(100) : perform a basic troubleshooting checklist: logs, ps, top, netstat, disk space, recent changes

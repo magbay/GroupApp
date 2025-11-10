@@ -1,0 +1,15 @@
+[Unit]
+Description=GroupApp - Task & AI Assistant
+After=network.target
+
+[Service]
+Type=forking
+User=west-mec-it-security
+WorkingDirectory=/home/west-mec-it-security/GroupApp
+ExecStart=/bin/bash /home/west-mec-it-security/GroupApp/start_all.sh
+ExecStop=/bin/bash /home/west-mec-it-security/GroupApp/stop_all.sh
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
