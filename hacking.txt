@@ -1,0 +1,100 @@
+Reconnaissance Basics: Learn to gather information about a target system using passive techniques like WHOIS lookups and DNS enumeration
+Port Scanning with Nmap: Master basic Nmap commands to identify open ports and running services on target systems
+Service Version Detection: Use Nmap's -sV flag to detect versions of services running on open ports
+Network Mapping: Create network topology maps using tools like Nmap and visualize the results
+Banner Grabbing: Extract service banners using netcat or telnet to identify software versions
+DNS Enumeration: Perform DNS zone transfers and subdomain enumeration using dig and dnsrecon
+WHOIS Lookups: Gather domain registration information and identify network ranges owned by organizations
+Google Dorking: Master advanced Google search operators to find sensitive information exposed online
+Shodan Searches: Use Shodan to discover internet-connected devices and services with specific vulnerabilities
+Metadata Analysis: Extract metadata from documents and images using exiftool to gather intelligence
+Social Engineering Reconnaissance: Research target organization's employees and structure using LinkedIn and social media
+Email Harvesting: Use theHarvester to collect email addresses associated with a target domain
+Web Application Fingerprinting: Identify web technologies using Wappalyzer, BuiltWith, or WhatWeb
+SSL/TLS Certificate Analysis: Examine SSL certificates to discover additional domains and subdomains
+Archive Analysis: Use Wayback Machine to view historical versions of websites and find old vulnerabilities
+Vulnerability Scanning with Nessus: Configure and run Nessus scans to identify system vulnerabilities
+OpenVAS Scanning: Set up and perform vulnerability scans using the open-source OpenVAS scanner
+Nikto Web Scanner: Scan web servers for common vulnerabilities and misconfigurations using Nikto
+Directory Brute-forcing: Use dirb or gobuster to discover hidden directories and files on web servers
+SQL Injection Detection: Identify SQL injection vulnerabilities using sqlmap or manual testing
+Cross-Site Scripting (XSS): Test for reflected, stored, and DOM-based XSS vulnerabilities in web applications
+Command Injection: Identify and exploit command injection vulnerabilities in web applications
+File Upload Vulnerabilities: Test file upload functionality for unrestricted file upload vulnerabilities
+Local File Inclusion (LFI): Discover and exploit LFI vulnerabilities to read sensitive files
+Remote File Inclusion (RFI): Test for and exploit RFI vulnerabilities to execute remote code
+XML External Entity (XXE): Identify XXE vulnerabilities in applications that parse XML input
+Server-Side Request Forgery (SSRF): Test for SSRF vulnerabilities that allow internal network access
+Insecure Direct Object References: Identify IDOR vulnerabilities by manipulating object references
+Broken Authentication: Test authentication mechanisms for common flaws and bypasses
+Session Management Flaws: Analyze session handling for vulnerabilities like session fixation and hijacking
+Password Cracking with John: Use John the Ripper to crack password hashes from various sources
+Hashcat GPU Cracking: Leverage GPU acceleration with Hashcat to crack password hashes faster
+Hydra Brute-forcing: Perform network service login brute-forcing using THC Hydra
+Rainbow Tables: Understand and use rainbow tables for rapid password hash lookups
+Wireless Network Discovery: Use airodump-ng to discover and monitor wireless networks
+WPA/WPA2 Cracking: Capture WPA handshakes and crack them using aircrack-ng
+WEP Cracking: Exploit WEP encryption weaknesses to recover wireless network keys
+Evil Twin Attack: Set up a rogue access point to intercept wireless network traffic
+Wireless Deauthentication: Perform deauth attacks to disconnect clients from wireless networks
+Packet Sniffing with Wireshark: Capture and analyze network traffic using Wireshark
+Man-in-the-Middle Attacks: Perform ARP spoofing to intercept network communications
+SSL Stripping: Use sslstrip to downgrade HTTPS connections to HTTP for interception
+DNS Spoofing: Redirect traffic by poisoning DNS responses on the local network
+Metasploit Framework Basics: Learn to navigate and use the Metasploit Framework for exploitation
+Exploit Development: Write basic exploits for buffer overflow vulnerabilities
+Payload Generation: Create custom payloads using msfvenom for different platforms
+Post-Exploitation with Meterpreter: Use Meterpreter sessions for post-exploitation activities
+Privilege Escalation on Linux: Identify and exploit misconfigurations to escalate privileges on Linux systems
+Windows Privilege Escalation: Use common techniques to gain SYSTEM privileges on Windows
+Persistence Mechanisms: Establish persistence on compromised systems using various techniques
+Lateral Movement: Move between systems in a network using pass-the-hash and other techniques
+Data Exfiltration: Extract sensitive data from compromised systems covertly
+Log Manipulation: Clear or modify logs to hide traces of compromise
+Antivirus Evasion: Encode and obfuscate payloads to evade antivirus detection
+Firewall Bypassing: Use techniques to bypass firewall rules and access restricted networks
+IDS/IPS Evasion: Modify attack patterns to avoid detection by intrusion detection systems
+Steganography: Hide data within images, audio files, or other media
+Covert Channels: Establish hidden communication channels using DNS, ICMP, or other protocols
+Python Scripting for Hacking: Write custom Python scripts to automate penetration testing tasks
+Bash Scripting: Create bash scripts to automate reconnaissance and exploitation workflows
+PowerShell for Penetration Testing: Use PowerShell for Windows post-exploitation and lateral movement
+API Security Testing: Test REST and SOAP APIs for common vulnerabilities
+GraphQL Injection: Identify and exploit GraphQL injection vulnerabilities
+JWT Token Manipulation: Analyze and manipulate JSON Web Tokens to bypass authentication
+OAuth Implementation Flaws: Test OAuth implementations for common security issues
+NoSQL Injection: Exploit NoSQL databases like MongoDB through injection attacks
+LDAP Injection: Test LDAP queries for injection vulnerabilities
+WebSocket Security: Test WebSocket implementations for security weaknesses
+Docker Container Escape: Exploit misconfigurations to escape Docker containers
+Kubernetes Security Assessment: Identify security issues in Kubernetes cluster configurations
+Cloud Metadata Exploitation: Access cloud instance metadata to retrieve credentials
+AWS S3 Bucket Enumeration: Discover and test publicly accessible S3 buckets
+Azure AD Reconnaissance: Enumerate Azure Active Directory for information gathering
+GCP Security Assessment: Identify misconfigurations in Google Cloud Platform resources
+OSINT Automation: Create automated OSINT collection workflows using tools like Maltego
+Threat Intelligence Gathering: Collect and analyze threat intelligence from various sources
+Phishing Campaign Setup: Create and deploy targeted phishing campaigns for social engineering assessments
+Vishing Techniques: Conduct voice phishing attacks to test security awareness
+Physical Security Assessment: Test physical access controls and badge cloning techniques
+RFID Cloning: Clone RFID cards and badges for physical penetration testing
+Lock Picking Basics: Learn basic lock picking techniques for physical security assessments
+Social Engineering Framework: Use SET (Social Engineering Toolkit) for various attack vectors
+USB Rubber Ducky: Program and deploy USB Rubber Ducky for automated payload delivery
+BadUSB Attacks: Create malicious USB devices that mimic keyboards or network adapters
+Mobile App Security Testing: Analyze Android and iOS applications for security vulnerabilities
+Android APK Reverse Engineering: Decompile and analyze Android applications using jadx or apktool
+iOS Application Analysis: Test iOS applications for security flaws using tools like Frida
+Burp Suite Professional: Master advanced features of Burp Suite for web application testing
+OWASP ZAP: Use OWASP ZAP for automated and manual web application security testing
+Sqlmap Advanced Usage: Use advanced sqlmap features for complex SQL injection scenarios
+Active Directory Enumeration: Map Active Directory structure and identify attack paths
+Kerberoasting: Extract and crack service account credentials from Active Directory
+AS-REP Roasting: Exploit accounts with Kerberos pre-authentication disabled
+Golden Ticket Attack: Create forged Kerberos TGTs for domain persistence
+Silver Ticket Attack: Forge Kerberos service tickets for specific services
+Pass-the-Hash: Use NTLM hashes to authenticate without knowing plaintext passwords
+Pass-the-Ticket: Use stolen Kerberos tickets to authenticate to services
+BloodHound Analysis: Use BloodHound to identify attack paths in Active Directory
+Cobalt Strike Usage: Learn Cobalt Strike for advanced red team operations
+Empire Framework: Use PowerShell Empire for post-exploitation and lateral movement
