@@ -25,7 +25,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     let tasks = [];
     let currentTaskIndex = -1;
 
-    const converter = new showdown.Converter();
+    const converter = new showdown.Converter({
+        tables: true,
+        strikethrough: true,
+        tasklists: true,
+        ghCodeBlocks: true,
+        simpleLineBreaks: true,
+        openLinksInNewWindow: true,
+        backslashEscapesHTMLTags: false,
+        literalMidWordUnderscores: true,
+        parseImgDimensions: true
+    });
+
+    // Simple wrapper that just uses showdown
+    function formatWithCodeBlocks(text) {
+        return converter.makeHtml(text);
+    }
 
     const renderNames = () => {
         nameList.innerHTML = '';
@@ -365,8 +380,8 @@ Keep it concise (10-15 steps maximum). Include command examples in code blocks w
             // Remove thinking tags and their content before rendering
             const cleanedText = textBuffer.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
             
-            // Render Markdown
-            const html = converter.makeHtml(cleanedText);
+            // Render with enhanced code block formatting
+            const html = formatWithCodeBlocks(cleanedText);
             if (loading && loading.classList.contains('guide-loading')) loading.remove();
             target.innerHTML = html || '<em>No guidance generated.</em>';
         } catch (e) {
@@ -496,8 +511,8 @@ Keep it concise (10-15 steps maximum). Include command examples in code blocks w
                                 }
                             }
                             
-                            // Update display with cleaned text as Markdown
-                            ollamaResponse.innerHTML = converter.makeHtml(displayText);
+                            // Update display with cleaned text using enhanced formatter
+                            ollamaResponse.innerHTML = formatWithCodeBlocks(displayText);
                         }
                     } catch (e) {
                         // Ignore partial/invalid JSON lines; they will complete on next chunk
@@ -529,8 +544,8 @@ Keep it concise (10-15 steps maximum). Include command examples in code blocks w
                             }
                         }
                         
-                        // Final render as Markdown
-                        ollamaResponse.innerHTML = converter.makeHtml(displayText);
+                        // Final render using enhanced formatter
+                        ollamaResponse.innerHTML = formatWithCodeBlocks(displayText);
                     }
                 } catch (_) {
                     // ignore
