@@ -332,7 +332,7 @@ textarea#ollama-input:focus { box-shadow: 0 0 0 2px #6366f133; }
 
 #ollama-response code {
     background: #f1f5f9;
-    color: #e11d48;
+    color: #dc2626;
     padding: 0.2rem 0.4rem;
     border-radius: 3px;
     font-size: 0.85em;
@@ -349,6 +349,7 @@ textarea#ollama-input:focus { box-shadow: 0 0 0 2px #6366f133; }
 #ollama-response p {
     margin: 0.75rem 0;
     cursor: default;
+    color: #1e293b;
 }
 
 #ollama-response strong {
@@ -364,6 +365,17 @@ textarea#ollama-input:focus { box-shadow: 0 0 0 2px #6366f133; }
 
 #ollama-response a:hover {
     border-bottom-color: #3b82f6;
+}
+
+/* Selection colors for better visibility */
+#ollama-response ::selection {
+    background: #3b82f6;
+    color: #ffffff;
+}
+
+#ollama-response code::selection {
+    background: #3b82f6;
+    color: #ffffff;
 }
 
 
