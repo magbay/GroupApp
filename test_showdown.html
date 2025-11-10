@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
+</head>
+<body>
+<div id="output"></div>
+<script>
+const converter = new showdown.Converter({
+    tables: true,
+    strikethrough: true,
+    tasklists: true,
+    ghCodeBlocks: true,
+    simpleLineBreaks: true,
+    openLinksInNewWindow: true,
+    backslashEscapesHTMLTags: false
+});
+
+const markdown = `Here is some code:
+
+\`\`\`bash
+ls -la
+cd /home
+\`\`\`
+
+And inline \`code here\`.`;
+
+const html = converter.makeHtml(markdown);
+document.getElementById('output').innerHTML = html;
+console.log(html);
+</script>
+</body>
+</html>

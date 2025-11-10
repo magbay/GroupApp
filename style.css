@@ -318,46 +318,31 @@ textarea#ollama-input:focus { box-shadow: 0 0 0 2px #6366f133; }
 }
 
 #ollama-response pre {
-    background: #fee2e2 !important;
-    color: #dc2626 !important;
-    padding: 1rem !important;
-    border-radius: 6px;
-    overflow-x: auto;
-    margin: 0.75rem 0;
-    font-size: 0.9rem !important;
-    line-height: 1.6;
-    border: 2px solid #fca5a5 !important;
+    all: unset !important;
     display: block !important;
-    visibility: visible !important;
-    font-family: 'Courier New', Courier, monospace !important;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    min-height: 40px;
+    color: #1e293b !important;
+    font-size: 0.9rem !important;
+    line-height: 1.6 !important;
+    margin: 0.75rem 0 !important;
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
 }
 
 /* Target any code element inside pre with maximum specificity */
 #ollama-response pre > code,
 #ollama-response pre code,
 #ollama-response pre * {
-    background: transparent !important;
-    color: #dc2626 !important;
+    all: unset !important;
+    color: #1e293b !important;
     font-size: 0.9rem !important;
-    font-weight: 600 !important;
     display: inline !important;
-    visibility: visible !important;
-    font-family: 'Courier New', Courier, monospace !important;
-    padding: 0 !important;
-    margin: 0 !important;
+    white-space: pre-wrap !important;
 }
 
 #ollama-response code {
-    background: #f1f5f9 !important;
-    color: #dc2626 !important;
-    padding: 0.2rem 0.4rem !important;
-    border-radius: 3px;
-    font-size: 0.85em !important;
-    font-family: 'Courier New', Courier, monospace !important;
-    visibility: visible !important;
+    all: unset !important;
+    color: #1e293b !important;
+    font-size: inherit !important;
 }
 
 #ollama-response p {
