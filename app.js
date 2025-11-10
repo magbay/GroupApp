@@ -37,15 +37,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         parseImgDimensions: true
     });
 
-    // Display as plain text without markdown conversion
+    // Re-enable markdown conversion for better formatting
     function formatWithCodeBlocks(text) {
-        // Escape HTML and preserve line breaks
-        const escaped = text
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/\n/g, '<br>');
-        return escaped;
+        return converter.makeHtml(text);
     }
 
     const renderNames = () => {
@@ -429,6 +423,7 @@ Keep it concise (10-15 steps maximum). Include command examples in code blocks w
     const ollamaInput = document.getElementById('ollama-input');
     const ollamaButton = document.getElementById('ollama-button');
     const ollamaResponse = document.getElementById('ollama-response');
+    const ollamaLoading = document.getElementById('ollama-loading');
 
     // Listen for server-sent events to trigger page refreshes when other users connect
     try {
@@ -452,6 +447,9 @@ Keep it concise (10-15 steps maximum). Include command examples in code blocks w
 
         ollamaResponse.innerHTML = '';
         ollamaInput.value = '';
+        
+        // Show loading indicator
+        ollamaLoading.style.display = 'flex';
 
     // NOTE: Update this base URL to point at your Ollama proxy
     const OLLAMA_BASE_URL = 'http://10.107.101.37:8001';
@@ -552,6 +550,8 @@ Keep it concise (10-15 steps maximum). Include command examples in code blocks w
                         
                         // Final render using enhanced formatter
                         ollamaResponse.innerHTML = formatWithCodeBlocks(displayText);
+                        // Hide loading indicator
+                        ollamaLoading.style.display = 'none';
                     }
                 } catch (_) {
                     // ignore
@@ -560,6 +560,7 @@ Keep it concise (10-15 steps maximum). Include command examples in code blocks w
         } catch (error) {
             console.error('Error with Ollama:', error);
             ollamaResponse.innerHTML = 'Error communicating with Ollama.';
+            ollamaLoading.style.display = 'none';
         }
     });
 });
