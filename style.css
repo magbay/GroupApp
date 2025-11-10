@@ -57,8 +57,6 @@ body {
 
 .scroll-list { height: 220px; overflow-y: auto; }
 
-h1 { display: none; }
-
 h2 {
     color: #1e293b;
     font-size: 1.05rem;
