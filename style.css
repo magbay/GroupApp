@@ -319,15 +319,19 @@ textarea#ollama-input:focus { box-shadow: 0 0 0 2px #6366f133; }
 }
 
 #ollama-response pre {
-    background: #0f172a;
-    color: #e2e8f0;
+    background: #f8fafc;
+    color: #dc2626;
     padding: 1rem;
     border-radius: 6px;
     overflow-x: auto;
     margin: 0.75rem 0;
-    font-size: 0.85rem;
-    line-height: 1.5;
-    border: 1px solid #1e293b;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    border: 1px solid #e2e8f0;
+    display: block;
+    font-family: 'Courier New', Courier, monospace;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 #ollama-response code {
@@ -341,9 +345,10 @@ textarea#ollama-input:focus { box-shadow: 0 0 0 2px #6366f133; }
 
 #ollama-response pre code {
     background: transparent;
-    color: #e2e8f0;
+    color: #dc2626;
     padding: 0;
     font-size: 1em;
+    font-weight: 500;
 }
 
 #ollama-response p {
