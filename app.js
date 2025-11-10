@@ -434,8 +434,9 @@ Task details: ${desc}`;
             const reader = response.body.getReader();
             const decoder = new TextDecoder();
             let buffer = '';
-            let insideThink = false;
             let fullText = '';
+            let displayText = '';
+            let insideThink = false;
 
             while (true) {
                 const { done, value } = await reader.read();
@@ -452,6 +453,31 @@ Task details: ${desc}`;
                         const parsed = JSON.parse(trimmed);
                         if (parsed.response) {
                             fullText += parsed.response;
+                            
+                            // Process character by character to track <think> tags
+                            for (let char of parsed.response) {
+                                if (fullText.slice(-7) === '<think>') {
+                                    insideThink = true;
+                                    // Remove the '<think>' we just added to display
+                                    displayText = displayText.slice(0, -7);
+                                }
+                                
+                                if (!insideThink) {
+                                    displayText += char;
+                                }
+                                
+                                if (fullText.slice(-8) === '</think>') {
+                                    insideThink = false;
+                                    displayText = displayText.slice(0, -8);
+                                }
+                            }
+                            
+                            // Update display with cleaned text
+                            const safe = displayText
+                                .replace(/&/g, '&amp;')
+                                .replace(/</g, '&lt;')
+                                .replace(/>/g, '&gt;');
+                            ollamaResponse.innerHTML = safe;
                         }
                     } catch (e) {
                         // Ignore partial/invalid JSON lines; they will complete on next chunk
@@ -466,21 +492,33 @@ Task details: ${desc}`;
                     const parsed = JSON.parse(last);
                     if (parsed.response) {
                         fullText += parsed.response;
+                        
+                        for (let char of parsed.response) {
+                            if (fullText.slice(-7) === '<think>') {
+                                insideThink = true;
+                                displayText = displayText.slice(0, -7);
+                            }
+                            
+                            if (!insideThink) {
+                                displayText += char;
+                            }
+                            
+                            if (fullText.slice(-8) === '</think>') {
+                                insideThink = false;
+                                displayText = displayText.slice(0, -8);
+                            }
+                        }
+                        
+                        const safe = displayText
+                            .replace(/&/g, '&amp;')
+                            .replace(/</g, '&lt;')
+                            .replace(/>/g, '&gt;');
+                        ollamaResponse.innerHTML = safe;
                     }
                 } catch (_) {
                     // ignore
                 }
             }
-
-            // Remove thinking tags and their content
-            const cleanedText = fullText.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
-            
-            // Basic HTML escape to avoid unintended markup
-            const safe = cleanedText
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;');
-            ollamaResponse.innerHTML = safe;
         } catch (error) {
             console.error('Error with Ollama:', error);
             ollamaResponse.innerHTML = 'Error communicating with Ollama.';
