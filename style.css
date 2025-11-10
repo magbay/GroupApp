@@ -157,7 +157,7 @@ li:last-child { border-bottom: none; }
 
 #result {
     font-size: .9rem;
-    color: #e2e8f0;
+    color: #ffffff;
     background: #1e293b;
     padding: .9rem 1rem;
     border-radius: 8px;
@@ -167,6 +167,11 @@ li:last-child { border-bottom: none; }
     line-height: 1.35;
     max-height: none;
     overflow-y: visible;
+}
+
+#result * {
+    opacity: 1 !important;
+    color: #ffffff !important;
 }
 
 .assignment-card {
@@ -197,14 +202,19 @@ li:last-child { border-bottom: none; }
     font-size: .9rem;
 }
 
+.guide-content * {
+    opacity: 1 !important;
+}
+
 .guide-content h1,
 .guide-content h2,
-.guide-content h3 { font-size: 1rem; margin: .4rem 0; color: #60a5fa; }
-.guide-content pre { background: #0b1020; color: #22d3ee; padding: .6rem .7rem; border-radius: 6px; overflow: auto; font-family: 'Courier New', monospace; }
-.guide-content code { background: #334155; color: #fbbf24; padding: 0 .25rem; border-radius: 4px; font-family: 'Courier New', monospace; }
-.guide-content p { color: #e2e8f0; }
-.guide-content strong { color: #f0abfc; }
-.guide-content ul, .guide-content ol { color: #e2e8f0; }
+.guide-content h3 { font-size: 1rem; margin: .4rem 0; color: #ffffff; }
+.guide-content pre { background: #0b1020; color: #ffffff; padding: .6rem .7rem; border-radius: 6px; overflow: auto; font-family: 'Courier New', monospace; }
+.guide-content code { background: #475569; color: #ffffff; padding: 0 .25rem; border-radius: 4px; font-family: 'Courier New', monospace; }
+.guide-content p { color: #ffffff; }
+.guide-content strong { color: #ffffff; font-weight: 700; }
+.guide-content ul, .guide-content ol { color: #ffffff; }
+.guide-content li { color: #ffffff; }
 
 
 .modal {
@@ -310,12 +320,16 @@ textarea#ollama-input:focus { box-shadow: 0 0 0 2px #6366f133; }
         max-height: 500px;
         overflow-y: auto;
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-        color: #e2e8f0;
+        color: #ffffff;
+}
+
+#ollama-response * {
+    opacity: 1 !important;
 }
 
 /* KB Article Styling for Ollama Response - Dark Mode */
 #ollama-response h2 {
-    color: #60a5fa;
+    color: #ffffff;
     font-size: 1.2rem;
     font-weight: 700;
     margin: 1.5rem 0 0.75rem;
@@ -328,7 +342,7 @@ textarea#ollama-input:focus { box-shadow: 0 0 0 2px #6366f133; }
 }
 
 #ollama-response h3 {
-    color: #93c5fd;
+    color: #ffffff;
     font-size: 1rem;
     font-weight: 600;
     margin: 1.25rem 0 0.5rem;
@@ -340,18 +354,20 @@ textarea#ollama-input:focus { box-shadow: 0 0 0 2px #6366f133; }
 #ollama-response ol {
     margin: 0.75rem 0;
     padding-left: 1.75rem;
+    color: #ffffff;
 }
 
 #ollama-response li {
     margin: 0.5rem 0;
     line-height: 1.6;
+    color: #ffffff;
 }
 
 #ollama-response pre {
     all: unset !important;
     display: block !important;
     background: #0f172a !important;
-    color: #22d3ee !important;
+    color: #ffffff !important;
     font-size: 0.9rem !important;
     line-height: 1.6 !important;
     margin: 0.75rem 0 !important;
@@ -369,7 +385,7 @@ textarea#ollama-input:focus { box-shadow: 0 0 0 2px #6366f133; }
 #ollama-response pre code,
 #ollama-response pre * {
     all: unset !important;
-    color: #22d3ee !important;
+    color: #ffffff !important;
     font-size: 0.9rem !important;
     display: inline !important;
     white-space: pre-wrap !important;
@@ -378,8 +394,8 @@ textarea#ollama-input:focus { box-shadow: 0 0 0 2px #6366f133; }
 
 #ollama-response code {
     all: unset !important;
-    background: #334155 !important;
-    color: #fbbf24 !important;
+    background: #475569 !important;
+    color: #ffffff !important;
     padding: 0.2rem 0.4rem !important;
     border-radius: 3px !important;
     font-size: 0.9em !important;
@@ -389,22 +405,22 @@ textarea#ollama-input:focus { box-shadow: 0 0 0 2px #6366f133; }
 #ollama-response p {
     margin: 0.75rem 0;
     cursor: default;
-    color: #e2e8f0;
+    color: #ffffff;
 }
 
 #ollama-response strong {
-    color: #f0abfc;
-    font-weight: 600;
+    color: #ffffff;
+    font-weight: 700;
 }
 
 #ollama-response a {
-    color: #60a5fa;
+    color: #93c5fd;
     text-decoration: none;
     border-bottom: 1px solid #3b82f6;
 }
 
 #ollama-response a:hover {
-    border-bottom-color: #60a5fa;
+    border-bottom-color: #93c5fd;
 }
 
 /* Selection colors for better visibility */

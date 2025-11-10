@@ -471,8 +471,12 @@ Keep it concise (10-15 steps maximum). Include command examples in code blocks w
                 const msg = `Request failed with status ${response.status}`;
                 console.error(msg);
                 ollamaResponse.innerHTML = msg;
+                ollamaLoading.style.display = 'none';
                 return;
             }
+
+            // Hide loading indicator once streaming starts
+            ollamaLoading.style.display = 'none';
 
             const reader = response.body.getReader();
             const decoder = new TextDecoder();
