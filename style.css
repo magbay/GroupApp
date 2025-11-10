@@ -318,38 +318,46 @@ textarea#ollama-input:focus { box-shadow: 0 0 0 2px #6366f133; }
 }
 
 #ollama-response pre {
-    background: #fee2e2;
-    color: #dc2626;
-    padding: 1rem;
+    background: #fee2e2 !important;
+    color: #dc2626 !important;
+    padding: 1rem !important;
     border-radius: 6px;
     overflow-x: auto;
     margin: 0.75rem 0;
-    font-size: 0.9rem;
+    font-size: 0.9rem !important;
     line-height: 1.6;
-    border: 2px solid #fca5a5;
+    border: 2px solid #fca5a5 !important;
     display: block !important;
-    font-family: 'Courier New', Courier, monospace;
+    visibility: visible !important;
+    font-family: 'Courier New', Courier, monospace !important;
     white-space: pre-wrap;
     word-wrap: break-word;
     min-height: 40px;
 }
 
-#ollama-response code {
-    background: #f1f5f9;
-    color: #dc2626;
-    padding: 0.2rem 0.4rem;
-    border-radius: 3px;
-    font-size: 0.85em;
-    font-family: 'Courier New', Courier, monospace;
+/* Target any code element inside pre with maximum specificity */
+#ollama-response pre > code,
+#ollama-response pre code,
+#ollama-response pre * {
+    background: transparent !important;
+    color: #dc2626 !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    display: inline !important;
+    visibility: visible !important;
+    font-family: 'Courier New', Courier, monospace !important;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
-#ollama-response pre code {
-    background: transparent;
-    color: #dc2626;
-    padding: 0;
-    font-size: 1em;
-    font-weight: 600;
-    display: inline !important;
+#ollama-response code {
+    background: #f1f5f9 !important;
+    color: #dc2626 !important;
+    padding: 0.2rem 0.4rem !important;
+    border-radius: 3px;
+    font-size: 0.85em !important;
+    font-family: 'Courier New', Courier, monospace !important;
+    visibility: visible !important;
 }
 
 #ollama-response p {
