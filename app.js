@@ -338,8 +338,11 @@ Task details: ${desc}`;
                 }
             }
 
+            // Remove thinking tags and their content before rendering
+            const cleanedText = textBuffer.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
+            
             // Render Markdown
-            const html = converter.makeHtml(textBuffer.trim());
+            const html = converter.makeHtml(cleanedText);
             if (loading && loading.classList.contains('guide-loading')) loading.remove();
             target.innerHTML = html || '<em>No guidance generated.</em>';
         } catch (e) {
@@ -431,6 +434,8 @@ Task details: ${desc}`;
             const reader = response.body.getReader();
             const decoder = new TextDecoder();
             let buffer = '';
+            let insideThink = false;
+            let fullText = '';
 
             while (true) {
                 const { done, value } = await reader.read();
@@ -446,12 +451,7 @@ Task details: ${desc}`;
                     try {
                         const parsed = JSON.parse(trimmed);
                         if (parsed.response) {
-                            // Basic HTML escape to avoid unintended markup
-                            const safe = parsed.response
-                                .replace(/&/g, '&amp;')
-                                .replace(/</g, '&lt;')
-                                .replace(/>/g, '&gt;');
-                            ollamaResponse.innerHTML += safe;
+                            fullText += parsed.response;
                         }
                     } catch (e) {
                         // Ignore partial/invalid JSON lines; they will complete on next chunk
@@ -465,16 +465,22 @@ Task details: ${desc}`;
                 try {
                     const parsed = JSON.parse(last);
                     if (parsed.response) {
-                        const safe = parsed.response
-                            .replace(/&/g, '&amp;')
-                            .replace(/</g, '&lt;')
-                            .replace(/>/g, '&gt;');
-                        ollamaResponse.innerHTML += safe;
+                        fullText += parsed.response;
                     }
                 } catch (_) {
                     // ignore
                 }
             }
+
+            // Remove thinking tags and their content
+            const cleanedText = fullText.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
+            
+            // Basic HTML escape to avoid unintended markup
+            const safe = cleanedText
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+            ollamaResponse.innerHTML = safe;
         } catch (error) {
             console.error('Error with Ollama:', error);
             ollamaResponse.innerHTML = 'Error communicating with Ollama.';
