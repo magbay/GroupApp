@@ -1,0 +1,106 @@
+Print Hello World: Write a program that prints "Hello, World!" to the console
+Variables and Data Types: Create variables of different types (int, float, string, boolean) and print them
+Basic Arithmetic: Write a program that performs addition, subtraction, multiplication, and division
+String Concatenation: Combine two strings using the + operator and print the result
+User Input: Get user input using input() and print it back to them
+String Formatting: Use f-strings to format and print variables in a sentence
+Type Conversion: Convert a string to an integer and perform arithmetic operations
+Multiple Variable Assignment: Assign multiple variables in one line and print them
+Basic Calculator: Create a simple calculator that adds two numbers from user input
+Even or Odd: Write a program to check if a number is even or odd
+Positive Negative Zero: Check if a number is positive, negative, or zero
+Maximum of Two Numbers: Find and print the larger of two numbers
+Leap Year Checker: Determine if a given year is a leap year
+Grade Calculator: Assign letter grades based on numerical scores
+Simple Login: Create a basic username/password checker
+Age Verification: Check if a person is eligible to vote (18 or older)
+Temperature Converter: Convert Celsius to Fahrenheit or vice versa
+Nested If Statements: Use nested if statements to check multiple conditions
+Logical Operators: Use and, or, not operators in conditional statements
+Triangle Validator: Check if three sides can form a valid triangle
+Print Numbers 1-10: Use a for loop to print numbers from 1 to 10
+While Loop Counter: Use a while loop to count from 1 to 20
+Sum of Numbers: Calculate the sum of numbers from 1 to 100
+Multiplication Table: Print the multiplication table for a given number
+Countdown Timer: Create a countdown from 10 to 1 using a while loop
+For Loop with Range: Use range() to iterate through numbers
+Break Statement: Demonstrate the use of break in a loop
+Continue Statement: Use continue to skip certain iterations
+Nested Loops: Create a pattern using nested for loops
+List Iteration: Loop through a list and print each element
+FizzBuzz Challenge: Print numbers 1-100, but "Fizz" for multiples of 3, "Buzz" for 5, "FizzBuzz" for both
+Factorial Calculator: Calculate factorial using a loop
+Prime Number Checker: Determine if a number is prime
+Fibonacci Sequence: Generate the first 10 Fibonacci numbers
+Sum of List: Calculate the sum of all numbers in a list
+Create and Print List: Create a list of your favorite foods and print it
+List Indexing: Access and print specific elements from a list using indices
+List Slicing: Use slicing to get portions of a list
+Append to List: Add items to a list using append()
+Remove from List: Remove items from a list using remove() and pop()
+List Length: Find and print the length of a list
+List Sorting: Sort a list in ascending and descending order
+List Comprehension: Create a list using list comprehension
+Find Maximum in List: Find the largest number in a list
+Find Minimum in List: Find the smallest number in a list
+Count Occurrences: Count how many times an element appears in a list
+Reverse a List: Reverse the order of elements in a list
+Check Element Exists: Check if an element exists in a list
+Merge Two Lists: Combine two lists into one
+Remove Duplicates: Remove duplicate values from a list
+Create Dictionary: Create a dictionary with student names and grades
+Access Dictionary Values: Access and print values from a dictionary using keys
+Add to Dictionary: Add new key-value pairs to a dictionary
+Update Dictionary: Modify existing values in a dictionary
+Delete from Dictionary: Remove items from a dictionary
+Loop Through Dictionary: Iterate through dictionary keys and values
+Dictionary Methods: Use .keys(), .values(), and .items() methods
+Nested Dictionary: Create and access a nested dictionary
+Dictionary Comprehension: Create a dictionary using comprehension
+Merge Dictionaries: Combine two dictionaries into one
+Check Key Exists: Check if a key exists in a dictionary
+Create Tuple: Create a tuple and try to modify it (demonstrate immutability)
+Tuple Unpacking: Unpack tuple values into separate variables
+Create Set: Create a set and demonstrate that it removes duplicates
+Set Operations: Perform union, intersection, and difference on sets
+Define Function: Create a simple function that prints a message
+Function with Parameters: Create a function that takes parameters
+Return Values: Write a function that returns a value
+Default Parameters: Create a function with default parameter values
+Multiple Return Values: Return multiple values from a function
+Lambda Function: Create and use a lambda function
+Map Function: Use map() to apply a function to a list
+Filter Function: Use filter() to filter elements from a list
+Reduce Function: Use reduce() to aggregate list values
+Recursive Function: Write a recursive function to calculate factorial
+Global vs Local Variables: Demonstrate the difference between global and local scope
+String Length: Find and print the length of a string
+String Upper and Lower: Convert strings to uppercase and lowercase
+String Replace: Replace parts of a string with new text
+String Split: Split a string into a list of words
+String Join: Join a list of strings into one string
+Check Substring: Check if a substring exists in a string
+String Strip: Remove whitespace from the beginning and end of a string
+Count Character: Count how many times a character appears in a string
+String Startswith/Endswith: Check if a string starts or ends with specific text
+Palindrome Checker: Check if a string is a palindrome
+Reverse String: Reverse the characters in a string
+Import Math Module: Import and use functions from the math module
+Random Number: Generate random numbers using the random module
+Current Date and Time: Use datetime module to get current date and time
+Create Custom Module: Create your own module and import it
+Try-Except Block: Handle exceptions using try-except
+Specific Exception: Catch specific exception types (ValueError, TypeError, etc.)
+Finally Block: Use finally block in exception handling
+Raise Exception: Manually raise an exception
+Multiple Exceptions: Handle multiple different exceptions
+Read Text File: Open and read a text file
+Write to File: Write text to a new file
+Append to File: Append text to an existing file
+Read File Line by Line: Read and process a file line by line
+File Exists Check: Check if a file exists before opening it
+With Statement: Use 'with' statement for file handling
+CSV File Reading: Read data from a CSV file
+JSON File Handling: Read and write JSON files
+Word Counter: Count the number of words in a text file
+Number Guessing Game: Create a game where the user guesses a random number
