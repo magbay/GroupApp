@@ -33,6 +33,47 @@ document.addEventListener('DOMContentLoaded', async () => {
     let tasks = [];
     let currentTaskIndex = -1;
     let manualAssignments = [];
+    let ollamaEndpoints = [];
+    let currentOllamaUrl = '';
+
+    // Load Ollama endpoints from models.txt
+    async function loadOllamaEndpoints() {
+        try {
+            const response = await fetch('models.txt');
+            if (response.ok) {
+                const text = await response.text();
+                const lines = text.split('\n')
+                    .map(line => line.trim())
+                    .filter(line => line && !line.startsWith('#'));
+                
+                ollamaEndpoints = lines;
+                
+                // Load saved endpoint or use first one
+                const saved = localStorage.getItem('selectedOllamaEndpoint');
+                if (saved && ollamaEndpoints.includes(saved)) {
+                    currentOllamaUrl = saved;
+                } else if (ollamaEndpoints.length > 0) {
+                    currentOllamaUrl = ollamaEndpoints[0];
+                }
+                
+                updateOllamaSelector();
+            }
+        } catch (error) {
+            console.error('Error loading models.txt:', error);
+            currentOllamaUrl = 'http://10.107.101.37:8001'; // fallback
+        }
+    }
+
+    function updateOllamaSelector() {
+        const selector = document.getElementById('ollama-endpoint-select');
+        if (selector && ollamaEndpoints.length > 0) {
+            selector.innerHTML = ollamaEndpoints.map(endpoint => {
+                const label = endpoint.includes('ngrok') ? 'Ngrok Tunnel' : 'Local Ollama';
+                return `<option value="${endpoint}">${label} (${endpoint})</option>`;
+            }).join('');
+            selector.value = currentOllamaUrl;
+        }
+    }
 
     const converter = new showdown.Converter({
         tables: true,
@@ -409,8 +450,7 @@ Keep it concise (10-15 steps maximum). Include command examples in code blocks w
         // Accumulate streamed text, then render as Markdown when done
         let textBuffer = '';
         try {
-            const OLLAMA_BASE_URL = 'http://10.107.101.37:8001';
-            const response = await fetch(`${OLLAMA_BASE_URL}/api/generate`, {
+            const response = await fetch(`${currentOllamaUrl}/api/generate`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -490,6 +530,18 @@ Keep it concise (10-15 steps maximum). Include command examples in code blocks w
     // Load default tasks after names are ready (currentTaskFile set by tabs default)
     setActiveTab(currentTaskFile);
     await loadTasksFromFile(currentTaskFile);
+    // Load Ollama endpoints configuration
+    await loadOllamaEndpoints();
+
+    // Ollama endpoint selector event listener
+    const ollamaEndpointSelect = document.getElementById('ollama-endpoint-select');
+    if (ollamaEndpointSelect) {
+        ollamaEndpointSelect.addEventListener('change', (e) => {
+            currentOllamaUrl = e.target.value;
+            localStorage.setItem('selectedOllamaEndpoint', currentOllamaUrl);
+            console.log('Switched to Ollama endpoint:', currentOllamaUrl);
+        });
+    }
 
     const ollamaInput = document.getElementById('ollama-input');
     const ollamaButton = document.getElementById('ollama-button');
@@ -522,11 +574,8 @@ Keep it concise (10-15 steps maximum). Include command examples in code blocks w
         // Show loading indicator
         ollamaLoading.style.display = 'flex';
 
-    // NOTE: Update this base URL to point at your Ollama proxy
-    const OLLAMA_BASE_URL = 'http://10.107.101.37:8001';
-
         try {
-            const response = await fetch(`${OLLAMA_BASE_URL}/api/generate`, {
+            const response = await fetch(`${currentOllamaUrl}/api/generate`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

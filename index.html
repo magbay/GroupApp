@@ -37,6 +37,12 @@
             </div>
             <div class="panel ai-panel">
                 <h2>Ask Ollama</h2>
+                <div class="ollama-config">
+                    <label for="ollama-endpoint-select">Model Source:</label>
+                    <select id="ollama-endpoint-select">
+                        <option value="http://10.107.101.37:8001">Loading...</option>
+                    </select>
+                </div>
                 <textarea id="ollama-input" placeholder="Ask a question..."></textarea>
                 <div class="ai-actions">
                     <button id="ollama-button">Submit</button>
