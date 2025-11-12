@@ -113,6 +113,43 @@ button:hover { box-shadow: 0 4px 8px -2px rgba(16,185,129,.4); }
 button:active { transform: translateY(1px); }
 .primary-action { font-size: .95rem; padding: .85rem 1.4rem; }
 
+/* Tab buttons */
+.tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.85rem;
+    background: #e2e8f0;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tab-btn:hover {
+    background: #cbd5e1;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.tab-btn.active {
+    background: linear-gradient(90deg, #3b82f6, #6366f1);
+    color: #ffffff;
+    border-color: #3b82f6;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(59, 130, 246, 0.3);
+}
+
+.tab-btn.active:hover {
+    box-shadow: 0 4px 8px rgba(59, 130, 246, 0.4);
+}
+
+
 ul {
     list-style: none;
     padding: 0;
