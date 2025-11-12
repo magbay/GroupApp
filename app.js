@@ -847,7 +847,7 @@ Keep it concise (10-15 steps maximum). Include command examples in code blocks w
         }
 
         // Load all task categories
-        const taskFiles = ['ccna.txt', 'linux.txt', 'sysadmin.txt', 'hacking.txt', 'python.txt', 'javascript.txt'];
+        const taskFiles = ['ccna.txt', 'linux.txt', 'sysadmin.txt', 'hacking.txt', 'python.txt', 'javascript.txt', 'ai.txt'];
         const allTasksByCategory = {};
 
         for (const file of taskFiles) {

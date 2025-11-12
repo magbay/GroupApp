@@ -1,0 +1,101 @@
+Introduction to AI: Learn what Artificial Intelligence is and its brief history
+Machine Learning Basics: Understand the difference between AI, ML, and Deep Learning
+Types of AI: Study Narrow AI vs General AI vs Super AI
+Supervised Learning: Learn how machines learn from labeled data
+Unsupervised Learning: Understand clustering and pattern recognition without labels
+Reinforcement Learning: Study how agents learn through rewards and penalties
+Neural Networks Fundamentals: Learn about artificial neurons and how they work
+Perceptrons: Build a simple perceptron from scratch
+Activation Functions: Understand sigmoid, ReLU, tanh and their uses
+Backpropagation: Learn how neural networks adjust weights
+Gradient Descent: Study optimization algorithms for training models
+Loss Functions: Understand MSE, cross-entropy and their applications
+Overfitting and Underfitting: Learn to identify and prevent these problems
+Train-Test Split: Practice dividing datasets properly
+Cross-Validation: Implement k-fold cross-validation
+Bias-Variance Tradeoff: Understand the balance in model complexity
+Feature Engineering: Learn to create meaningful features from raw data
+Data Preprocessing: Practice cleaning and normalizing datasets
+Handling Missing Data: Study imputation techniques
+Data Augmentation: Learn to expand training datasets artificially
+Linear Regression: Implement simple and multiple linear regression
+Logistic Regression: Build binary classification models
+Decision Trees: Understand tree-based decision making
+Random Forests: Learn ensemble methods with multiple trees
+Support Vector Machines: Study margin-based classification
+K-Nearest Neighbors: Implement distance-based classification
+Naive Bayes: Learn probabilistic classification
+K-Means Clustering: Practice unsupervised grouping of data
+Principal Component Analysis: Reduce dimensionality of datasets
+Convolutional Neural Networks: Understand CNNs for image processing
+Image Classification: Build a model to classify images
+Object Detection: Learn to locate objects in images with YOLO or R-CNN
+Image Segmentation: Study pixel-level classification
+Transfer Learning: Use pre-trained models like ResNet or VGG
+Data Augmentation for Images: Apply rotations, flips, and color changes
+Recurrent Neural Networks: Learn about sequential data processing
+LSTM Networks: Understand long-term dependencies in sequences
+GRU Networks: Study simplified recurrent architectures
+Natural Language Processing Basics: Introduction to text processing
+Text Preprocessing: Tokenization, stemming, and lemmatization
+Word Embeddings: Learn Word2Vec and GloVe representations
+Sentiment Analysis: Build models to detect emotions in text
+Text Classification: Categorize documents by topic
+Named Entity Recognition: Identify people, places, and organizations in text
+Machine Translation: Study sequence-to-sequence models
+Transformers Architecture: Understand attention mechanisms
+BERT Model: Learn bidirectional encoder representations
+GPT Models: Study generative pre-trained transformers
+Fine-tuning Language Models: Adapt pre-trained models to specific tasks
+Prompt Engineering: Learn to craft effective prompts for LLMs
+Generative Adversarial Networks: Understand generator-discriminator architecture
+Image Generation with GANs: Create realistic synthetic images
+Style Transfer: Apply artistic styles to images
+Variational Autoencoders: Learn probabilistic generative models
+Diffusion Models: Study modern image generation techniques
+Autoencoder Basics: Learn dimensionality reduction with neural networks
+Speech Recognition: Convert audio to text with Whisper or similar
+Text-to-Speech: Generate natural-sounding speech from text
+Audio Classification: Identify sounds and music genres
+Time Series Forecasting: Predict future values from historical data
+Anomaly Detection: Identify unusual patterns in data
+Recommendation Systems: Build collaborative and content-based filters
+A/B Testing for ML: Compare model performance statistically
+Model Evaluation Metrics: Understand accuracy, precision, recall, F1-score
+Confusion Matrix: Analyze classification results
+ROC Curves and AUC: Evaluate binary classifiers
+Hyperparameter Tuning: Use grid search and random search
+Learning Rate Scheduling: Optimize training speed and convergence
+Batch Normalization: Stabilize neural network training
+Dropout Regularization: Prevent overfitting in deep networks
+Early Stopping: Know when to stop training
+Model Deployment Basics: Learn to serve ML models in production
+REST APIs for ML: Build Flask or FastAPI endpoints
+Docker for ML: Containerize machine learning applications
+Model Versioning: Track and manage model iterations
+A/B Testing in Production: Compare deployed model versions
+Monitoring ML Systems: Track model performance over time
+Data Drift Detection: Identify when input data changes
+Model Retraining Pipelines: Automate model updates
+Explainable AI: Understand SHAP and LIME for model interpretation
+Feature Importance: Identify which features drive predictions
+Attention Visualization: See what models focus on
+Ethical AI: Study bias, fairness, and responsible AI development
+Bias in ML Models: Detect and mitigate algorithmic bias
+Privacy in AI: Learn differential privacy and federated learning
+Adversarial Attacks: Understand how models can be fooled
+Model Robustness: Build resilient AI systems
+AutoML: Use automated machine learning tools
+Neural Architecture Search: Let AI design neural networks
+Meta-Learning: Teach models to learn how to learn
+Few-Shot Learning: Train with minimal examples
+Zero-Shot Learning: Make predictions on unseen classes
+Multi-Task Learning: Train one model for multiple objectives
+Graph Neural Networks: Process graph-structured data
+Reinforcement Learning Environments: Set up OpenAI Gym
+Q-Learning: Implement value-based RL algorithms
+Policy Gradients: Learn direct policy optimization
+Deep Q-Networks: Combine deep learning with Q-learning
+Actor-Critic Methods: Study hybrid RL approaches
+Computer Vision Projects: Build real-world vision applications
+Chatbot Development: Create conversational AI agents
