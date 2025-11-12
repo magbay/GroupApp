@@ -2,8 +2,8 @@
 # Uncomment the line you want to use (remove the # at the start)
 # Only ONE line should be uncommented at a time
 
-# Local Ollama (default)
-http://10.107.101.37:8001
+# Local Ollama
+# http://10.107.101.37:8001
 
-# Ngrok Tunnel
-# https://synodic-maximilian-feudally.ngrok-free.dev
+# Ngrok Tunnel (active)
+https://synodic-maximilian-feudally.ngrok-free.dev
