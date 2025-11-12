@@ -35,6 +35,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     let manualAssignments = [];
     let ollamaEndpoints = [];
     let currentOllamaUrl = '';
+    let currentOllamaModel = 'qwen3:8b';
+
+    // Parse endpoint config: URL|MODEL or just URL
+    function parseEndpointConfig(config) {
+        const parts = config.split('|');
+        return {
+            url: parts[0].trim(),
+            model: parts[1] ? parts[1].trim() : 'qwen3:8b'
+        };
+    }
 
     // Load Ollama endpoints from models.txt
     async function loadOllamaEndpoints() {
@@ -51,9 +61,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                 // Load saved endpoint or use first one
                 const saved = localStorage.getItem('selectedOllamaEndpoint');
                 if (saved && ollamaEndpoints.includes(saved)) {
-                    currentOllamaUrl = saved;
+                    const config = parseEndpointConfig(saved);
+                    currentOllamaUrl = config.url;
+                    currentOllamaModel = config.model;
                 } else if (ollamaEndpoints.length > 0) {
-                    currentOllamaUrl = ollamaEndpoints[0];
+                    const config = parseEndpointConfig(ollamaEndpoints[0]);
+                    currentOllamaUrl = config.url;
+                    currentOllamaModel = config.model;
                 }
                 
                 updateOllamaSelector();
@@ -61,6 +75,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         } catch (error) {
             console.error('Error loading models.txt:', error);
             currentOllamaUrl = 'http://10.107.101.37:8001'; // fallback
+            currentOllamaModel = 'qwen3:8b';
         }
     }
 
@@ -68,10 +83,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         const selector = document.getElementById('ollama-endpoint-select');
         if (selector && ollamaEndpoints.length > 0) {
             selector.innerHTML = ollamaEndpoints.map(endpoint => {
-                const label = endpoint.includes('ngrok') ? 'Ngrok Tunnel' : 'Local Ollama';
-                return `<option value="${endpoint}">${label} (${endpoint})</option>`;
+                const config = parseEndpointConfig(endpoint);
+                const label = config.url.includes('ngrok') ? 'Ngrok Tunnel' : 'Local Ollama';
+                return `<option value="${endpoint}">${label} - ${config.model}</option>`;
             }).join('');
-            selector.value = currentOllamaUrl;
+            // Find and select the current config
+            const currentConfig = ollamaEndpoints.find(ep => {
+                const cfg = parseEndpointConfig(ep);
+                return cfg.url === currentOllamaUrl;
+            });
+            if (currentConfig) {
+                selector.value = currentConfig;
+            }
         }
     }
 
@@ -457,7 +480,7 @@ Keep it concise (10-15 steps maximum). Include command examples in code blocks w
                     'Accept': 'application/json'
                 },
                 body: JSON.stringify({
-                    model: 'qwen3:8b',
+                    model: currentOllamaModel,
                     prompt: prompt
                 })
             });
@@ -537,9 +560,11 @@ Keep it concise (10-15 steps maximum). Include command examples in code blocks w
     const ollamaEndpointSelect = document.getElementById('ollama-endpoint-select');
     if (ollamaEndpointSelect) {
         ollamaEndpointSelect.addEventListener('change', (e) => {
-            currentOllamaUrl = e.target.value;
-            localStorage.setItem('selectedOllamaEndpoint', currentOllamaUrl);
-            console.log('Switched to Ollama endpoint:', currentOllamaUrl);
+            const config = parseEndpointConfig(e.target.value);
+            currentOllamaUrl = config.url;
+            currentOllamaModel = config.model;
+            localStorage.setItem('selectedOllamaEndpoint', e.target.value);
+            console.log('Switched to Ollama endpoint:', currentOllamaUrl, 'Model:', currentOllamaModel);
         });
     }
 
@@ -582,7 +607,7 @@ Keep it concise (10-15 steps maximum). Include command examples in code blocks w
                     'Accept': 'application/json'
                 },
                 body: JSON.stringify({
-                    model: 'qwen3:8b',
+                    model: currentOllamaModel,
                     prompt: prompt
                 })
             });
