@@ -2,10 +2,12 @@ from flask import Flask, request, Response, stream_with_context
 import requests
 import threading
 import queue
+import json
 
 app = Flask(__name__)
 
-OLLAMA_URL = 'http://10.107.101.37:11434/api/generate'
+# Default Ollama URL
+DEFAULT_OLLAMA_URL = 'http://10.107.101.37:11434/api/generate'
 
 # Simple in-memory SSE broadcaster
 clients = []
@@ -29,13 +31,23 @@ def proxy_generate():
         resp.headers['Access-Control-Allow-Origin'] = '*'
         resp.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
         # Allow common headers used by the client
-        resp.headers['Access-Control-Allow-Headers'] = 'Content-Type, Accept'
+        resp.headers['Access-Control-Allow-Headers'] = 'Content-Type, Accept, X-Ollama-Target'
         return resp
+
+    # Check if custom target URL is provided in headers
+    custom_target = request.headers.get('X-Ollama-Target')
+    
+    if custom_target:
+        # Use custom target (e.g., ngrok URL)
+        ollama_url = f"{custom_target}/api/generate"
+    else:
+        # Use default local Ollama
+        ollama_url = DEFAULT_OLLAMA_URL
 
     # Forward POST body and headers to Ollama
     headers = {'Content-Type': 'application/json'}
     try:
-        r = requests.post(OLLAMA_URL, headers=headers, data=request.get_data(), stream=True, timeout=30)
+        r = requests.post(ollama_url, headers=headers, data=request.get_data(), stream=True, timeout=30)
     except requests.RequestException as e:
         return Response(str(e), status=502)
 

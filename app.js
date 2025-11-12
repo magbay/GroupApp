@@ -473,12 +473,21 @@ Keep it concise (10-15 steps maximum). Include command examples in code blocks w
         // Accumulate streamed text, then render as Markdown when done
         let textBuffer = '';
         try {
-            const response = await fetch(`${currentOllamaUrl}/api/generate`, {
+            // Always use local proxy, send target URL in header
+            const fetchUrl = 'http://10.107.101.37:8001/api/generate';
+            const headers = {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            };
+            
+            // If using external URL (ngrok), send it in header for proxy to forward
+            if (currentOllamaUrl.startsWith('https://')) {
+                headers['X-Ollama-Target'] = currentOllamaUrl;
+            }
+            
+            const response = await fetch(fetchUrl, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
+                headers: headers,
                 body: JSON.stringify({
                     model: currentOllamaModel,
                     prompt: prompt
@@ -600,12 +609,21 @@ Keep it concise (10-15 steps maximum). Include command examples in code blocks w
         ollamaLoading.style.display = 'flex';
 
         try {
-            const response = await fetch(`${currentOllamaUrl}/api/generate`, {
+            // Always use local proxy, send target URL in header
+            const fetchUrl = 'http://10.107.101.37:8001/api/generate';
+            const headers = {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            };
+            
+            // If using external URL (ngrok), send it in header for proxy to forward
+            if (currentOllamaUrl.startsWith('https://')) {
+                headers['X-Ollama-Target'] = currentOllamaUrl;
+            }
+            
+            const response = await fetch(fetchUrl, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
+                headers: headers,
                 body: JSON.stringify({
                     model: currentOllamaModel,
                     prompt: prompt
