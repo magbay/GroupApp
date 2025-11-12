@@ -190,12 +190,45 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     };
 
-    // Wire tab buttons
+    // Wire tab buttons and regenerate buttons
     document.addEventListener('click', (e) => {
         if (e.target && e.target.classList && e.target.classList.contains('tab-btn')) {
             const file = e.target.dataset.file;
             setActiveTab(file);
             loadTasksFromFile(file);
+        }
+        
+        // Handle regenerate button clicks
+        if (e.target && e.target.classList && e.target.classList.contains('regenerate-btn')) {
+            const assignmentId = parseInt(e.target.dataset.assignmentId, 10);
+            const assignment = lastAssignments.find(a => a.id === assignmentId);
+            if (assignment) {
+                // Delete from cache and regenerate
+                const isAdvanced = advancedModeCheckbox?.checked || false;
+                fetch('http://10.107.101.37:8001/api/cache/delete', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        task_name: assignment.taskName,
+                        task_description: assignment.taskDescription,
+                        is_advanced: isAdvanced,
+                        model_name: currentOllamaModel
+                    })
+                }).then(() => {
+                    // Reset the guide display
+                    const target = document.getElementById(`guide-${assignmentId}`);
+                    const loading = target?.previousElementSibling;
+                    if (loading) {
+                        loading.textContent = 'Regenerating guide with Ollama…';
+                        loading.style.color = '';
+                    }
+                    if (target) {
+                        target.innerHTML = '';
+                    }
+                    // Regenerate
+                    fetchOllamaGuideForAssignment(assignment, true);
+                }).catch(err => console.error('Failed to delete cache:', err));
+            }
         }
     });
 
@@ -462,11 +495,52 @@ Keep it concise (10-15 steps maximum). Include command examples in code blocks w
         }
     }
 
-    async function fetchOllamaGuideForAssignment(assignment) {
+    async function fetchOllamaGuideForAssignment(assignment, forceRegenerate = false) {
         const targetId = `guide-${assignment.id}`;
         const target = document.getElementById(targetId);
         const loading = target?.previousElementSibling; // .guide-loading
         if (!target) return;
+
+        const isAdvanced = advancedModeCheckbox?.checked || false;
+
+        // Check cache first (unless force regenerate)
+        if (!forceRegenerate) {
+            try {
+                const cacheResponse = await fetch('http://10.107.101.37:8001/api/cache/get', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        task_name: assignment.taskName,
+                        task_description: assignment.taskDescription,
+                        is_advanced: isAdvanced,
+                        model_name: currentOllamaModel
+                    })
+                });
+
+                if (cacheResponse.ok) {
+                    const cacheData = await cacheResponse.json();
+                    if (cacheData.found) {
+                        // Display cached content
+                        const html = formatWithCodeBlocks(cacheData.guide_content);
+                        if (loading && loading.classList.contains('guide-loading')) {
+                            loading.textContent = `✓ Cached (${new Date(cacheData.created_at).toLocaleString()})`;
+                            loading.style.color = '#10b981';
+                        }
+                        target.innerHTML = html + `
+                            <div style="margin-top: 1rem; padding: 0.5rem; background: #f1f5f9; border-radius: 4px; font-size: 0.8rem;">
+                                <button class="regenerate-btn" data-assignment-id="${assignment.id}" style="padding: 0.4rem 0.8rem; background: linear-gradient(90deg, #f59e0b, #d97706); color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">
+                                    🔄 Regenerate Guide
+                                </button>
+                                <span style="margin-left: 0.5rem; color: #64748b;">Cached from ${new Date(cacheData.created_at).toLocaleString()}</span>
+                            </div>
+                        `;
+                        return;
+                    }
+                }
+            } catch (e) {
+                console.log('Cache check failed, generating new:', e);
+            }
+        }
 
         const prompt = buildGuidePrompt(assignment.taskName, assignment.taskDescription, assignment.group);
 
@@ -523,10 +597,34 @@ Keep it concise (10-15 steps maximum). Include command examples in code blocks w
             // Remove thinking tags and their content before rendering
             const cleanedText = textBuffer.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
             
+            // Save to cache
+            try {
+                await fetch('http://10.107.101.37:8001/api/cache/save', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        task_name: assignment.taskName,
+                        task_description: assignment.taskDescription,
+                        is_advanced: isAdvanced,
+                        model_name: currentOllamaModel,
+                        guide_content: cleanedText
+                    })
+                });
+            } catch (e) {
+                console.log('Failed to cache guide:', e);
+            }
+            
             // Render with enhanced code block formatting
             const html = formatWithCodeBlocks(cleanedText);
             if (loading && loading.classList.contains('guide-loading')) loading.remove();
-            target.innerHTML = html || '<em>No guidance generated.</em>';
+            target.innerHTML = html + `
+                <div style="margin-top: 1rem; padding: 0.5rem; background: #f1f5f9; border-radius: 4px; font-size: 0.8rem;">
+                    <button class="regenerate-btn" data-assignment-id="${assignment.id}" style="padding: 0.4rem 0.8rem; background: linear-gradient(90deg, #f59e0b, #d97706); color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">
+                        🔄 Regenerate Guide
+                    </button>
+                    <span style="margin-left: 0.5rem; color: #64748b;">Generated just now</span>
+                </div>
+            ` || '<em>No guidance generated.</em>';
         } catch (e) {
             console.error('Ollama guide error:', e);
             if (loading && loading.classList.contains('guide-loading')) loading.textContent = 'Failed to generate guide.';

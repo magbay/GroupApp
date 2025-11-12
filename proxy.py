@@ -1,8 +1,15 @@
-from flask import Flask, request, Response, stream_with_context
+from flask import Flask, request, Response, stream_with_context, jsonify
 import requests
 import threading
 import queue
 import json
+
+# Import task cache module
+try:
+    import task_cache
+except ImportError:
+    task_cache = None
+    print("Warning: task_cache module not found, caching disabled")
 
 app = Flask(__name__)
 
@@ -104,6 +111,108 @@ def notify():
     msg = request.get_data(as_text=True) or 'reload'
     broadcast(msg)
     return ('', 204)
+
+
+@app.route('/api/cache/get', methods=['POST', 'OPTIONS'])
+def get_cache():
+    """Get cached guide for a task."""
+    if request.method == 'OPTIONS':
+        resp = Response()
+        resp.headers['Access-Control-Allow-Origin'] = '*'
+        resp.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
+        resp.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+        return resp
+    
+    if not task_cache:
+        return jsonify({'error': 'Cache not available'}), 503
+    
+    data = request.get_json()
+    task_name = data.get('task_name')
+    task_description = data.get('task_description', '')
+    is_advanced = data.get('is_advanced', False)
+    model_name = data.get('model_name', 'qwen3:8b')
+    
+    result = task_cache.get_cached_guide(task_name, task_description, is_advanced, model_name)
+    
+    resp_data = {}
+    if result:
+        resp_data = {
+            'found': True,
+            'guide_content': result[0],
+            'created_at': result[1]
+        }
+    else:
+        resp_data = {'found': False}
+    
+    resp = jsonify(resp_data)
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
+
+
+@app.route('/api/cache/save', methods=['POST', 'OPTIONS'])
+def save_cache():
+    """Save guide to cache."""
+    if request.method == 'OPTIONS':
+        resp = Response()
+        resp.headers['Access-Control-Allow-Origin'] = '*'
+        resp.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
+        resp.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+        return resp
+    
+    if not task_cache:
+        return jsonify({'error': 'Cache not available'}), 503
+    
+    data = request.get_json()
+    task_name = data.get('task_name')
+    task_description = data.get('task_description', '')
+    is_advanced = data.get('is_advanced', False)
+    model_name = data.get('model_name', 'qwen3:8b')
+    guide_content = data.get('guide_content')
+    
+    task_cache.save_guide(task_name, task_description, is_advanced, model_name, guide_content)
+    
+    resp = jsonify({'success': True})
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
+
+
+@app.route('/api/cache/delete', methods=['POST', 'OPTIONS'])
+def delete_cache():
+    """Delete cached guide (for regeneration)."""
+    if request.method == 'OPTIONS':
+        resp = Response()
+        resp.headers['Access-Control-Allow-Origin'] = '*'
+        resp.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
+        resp.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+        return resp
+    
+    if not task_cache:
+        return jsonify({'error': 'Cache not available'}), 503
+    
+    data = request.get_json()
+    task_name = data.get('task_name')
+    task_description = data.get('task_description', '')
+    is_advanced = data.get('is_advanced', False)
+    model_name = data.get('model_name', 'qwen3:8b')
+    
+    task_cache.delete_guide(task_name, task_description, is_advanced, model_name)
+    
+    resp = jsonify({'success': True})
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
+
+
+@app.route('/api/cache/stats', methods=['GET'])
+def cache_stats():
+    """Get cache statistics."""
+    if not task_cache:
+        return jsonify({'error': 'Cache not available'}), 503
+    
+    stats = task_cache.get_cache_stats()
+    resp = jsonify(stats)
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8001)
