@@ -629,6 +629,7 @@ Keep it concise (10-15 steps maximum). Include command examples in code blocks w
                 <div class="team-assignment-block">
                     <h3>Team ${idx + 1}</h3>
                     <div class="team-members">Members: ${group.join(', ')}</div>
+                    <div id="selected-task-desc-${idx}" class="selected-task-description" style="display: none;"></div>
             `;
 
             // Add task selection for each category
@@ -640,16 +641,17 @@ Keep it concise (10-15 steps maximum). Include command examples in code blocks w
                 `;
 
                 categoryTasks.forEach((task, taskIdx) => {
-                    const checkboxId = `task-${idx}-${category}-${taskIdx}`;
+                    const radioId = `task-${idx}-${category}-${taskIdx}`;
                     html += `
                         <div class="task-selection-item">
-                            <input type="checkbox" 
-                                   id="${checkboxId}" 
+                            <input type="radio" 
+                                   name="team-${idx}-task"
+                                   id="${radioId}" 
                                    data-team-id="${idx}" 
                                    data-category="${category}"
                                    data-task-name="${task.name}"
                                    data-task-description="${escape(task.description)}">
-                            <label for="${checkboxId}">${task.name}</label>
+                            <label for="${radioId}">${task.name}</label>
                         </div>
                     `;
                 });
@@ -664,20 +666,37 @@ Keep it concise (10-15 steps maximum). Include command examples in code blocks w
         });
 
         manualAssignmentContainer.innerHTML = html;
+
+        // Add event listeners for radio button changes to show description
+        const radioButtons = manualAssignmentContainer.querySelectorAll('input[type="radio"]');
+        radioButtons.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    const teamId = e.target.dataset.teamId;
+                    const taskDescription = unescape(e.target.dataset.taskDescription);
+                    const descEl = document.getElementById(`selected-task-desc-${teamId}`);
+                    if (descEl) {
+                        descEl.innerHTML = `<strong>Task Description:</strong> ${converter.makeHtml(taskDescription)}`;
+                        descEl.style.display = 'block';
+                    }
+                }
+            });
+        });
+
         manualAssignmentModal.style.display = 'block';
     });
 
     saveManualAssignmentButton?.addEventListener('click', () => {
         // Collect selected tasks for each team
-        const checkboxes = manualAssignmentContainer.querySelectorAll('input[type="checkbox"]:checked');
+        const radioButtons = manualAssignmentContainer.querySelectorAll('input[type="radio"]:checked');
         
         // Reset selections
         manualAssignments.forEach(a => a.selectedTasks = []);
 
-        checkboxes.forEach(cb => {
-            const teamId = parseInt(cb.dataset.teamId, 10);
-            const taskName = cb.dataset.taskName;
-            const taskDescription = unescape(cb.dataset.taskDescription);
+        radioButtons.forEach(radio => {
+            const teamId = parseInt(radio.dataset.teamId, 10);
+            const taskName = radio.dataset.taskName;
+            const taskDescription = unescape(radio.dataset.taskDescription);
             
             manualAssignments[teamId].selectedTasks.push({
                 name: taskName,

@@ -325,6 +325,33 @@ li:last-child { border-bottom: none; }
     font-style: italic;
 }
 
+.selected-task-description {
+    background: #e0f2fe;
+    border: 1px solid #7dd3fc;
+    border-radius: 6px;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+    color: #0c4a6e;
+}
+
+.selected-task-description strong {
+    color: #0369a1;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.selected-task-description p {
+    margin: 0.5rem 0;
+}
+
+.selected-task-description code {
+    background: #bae6fd;
+    color: #0c4a6e;
+    padding: 0.1rem 0.3rem;
+    border-radius: 3px;
+}
+
 .task-category-section {
     margin-bottom: 1rem;
 }
@@ -362,7 +389,8 @@ li:last-child { border-bottom: none; }
     background: #f1f5f9;
 }
 
-.task-selection-item input[type="checkbox"] {
+.task-selection-item input[type="checkbox"],
+.task-selection-item input[type="radio"] {
     margin-top: 0.2rem;
     cursor: pointer;
 }
