@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const taskList = document.getElementById('task-list');
 
     const randomButton = document.getElementById('random-button');
+    const manualButton = document.getElementById('manual-button');
     const resultDisplay = document.getElementById('result');
     const groupSizeInput = document.getElementById('group-size');
     const uniqueTasksCheckbox = document.getElementById('unique-tasks');
@@ -21,9 +22,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     const resultTaskDescription = document.getElementById('result-task-description');
     const resultModalCloseButton = resultModal.querySelector('.close-btn');
 
+    const manualAssignmentModal = document.getElementById('manual-assignment-modal');
+    const manualAssignmentContainer = document.getElementById('manual-assignment-container');
+    const saveManualAssignmentButton = document.getElementById('save-manual-assignment');
+    const cancelManualAssignmentButton = document.getElementById('cancel-manual-assignment');
+    const manualModalCloseButton = manualAssignmentModal.querySelector('.close-btn');
+
     let names = JSON.parse(localStorage.getItem('names')) || [];
     let tasks = [];
     let currentTaskIndex = -1;
+    let manualAssignments = [];
 
     const converter = new showdown.Converter({
         tables: true,
@@ -567,4 +575,189 @@ Keep it concise (10-15 steps maximum). Include command examples in code blocks w
             ollamaLoading.style.display = 'none';
         }
     });
+
+    // Manual Task Assignment
+    manualButton?.addEventListener('click', async () => {
+        if (names.length === 0) {
+            alert('Please add at least one name first.');
+            return;
+        }
+
+        const groupSize = parseInt(groupSizeInput.value, 10) || 2;
+
+        // Create groups
+        const shuffledNames = [...names].sort(() => 0.5 - Math.random());
+        const groups = [];
+        while (shuffledNames.length > 0) {
+            const group = shuffledNames.splice(0, groupSize);
+            groups.push(group);
+        }
+
+        // Load all task categories
+        const taskFiles = ['ccna.txt', 'linux.txt', 'sysadmin.txt', 'hacking.txt', 'python.txt', 'javascript.txt'];
+        const allTasksByCategory = {};
+
+        for (const file of taskFiles) {
+            try {
+                const response = await fetch(file);
+                if (response.ok) {
+                    const text = await response.text();
+                    const categoryTasks = text.split('\n').map(line => {
+                        const [name, ...description] = line.split(':');
+                        return { name: (name||'').trim(), description: (description||[]).join(':').trim() };
+                    }).filter(task => task.name);
+                    
+                    const categoryName = file.replace('.txt', '').toUpperCase();
+                    allTasksByCategory[categoryName] = categoryTasks;
+                }
+            } catch (error) {
+                console.error('Error loading', file, error);
+            }
+        }
+
+        // Initialize manual assignments
+        manualAssignments = groups.map((group, idx) => ({
+            id: idx,
+            group: [...group],
+            selectedTasks: []
+        }));
+
+        // Build the modal content
+        let html = '';
+        groups.forEach((group, idx) => {
+            html += `
+                <div class="team-assignment-block">
+                    <h3>Team ${idx + 1}</h3>
+                    <div class="team-members">Members: ${group.join(', ')}</div>
+            `;
+
+            // Add task selection for each category
+            for (const [category, categoryTasks] of Object.entries(allTasksByCategory)) {
+                html += `
+                    <div class="task-category-section">
+                        <h4>${category}</h4>
+                        <div class="task-selection-list">
+                `;
+
+                categoryTasks.forEach((task, taskIdx) => {
+                    const checkboxId = `task-${idx}-${category}-${taskIdx}`;
+                    html += `
+                        <div class="task-selection-item">
+                            <input type="checkbox" 
+                                   id="${checkboxId}" 
+                                   data-team-id="${idx}" 
+                                   data-category="${category}"
+                                   data-task-name="${task.name}"
+                                   data-task-description="${escape(task.description)}">
+                            <label for="${checkboxId}">${task.name}</label>
+                        </div>
+                    `;
+                });
+
+                html += `
+                        </div>
+                    </div>
+                `;
+            }
+
+            html += `</div>`;
+        });
+
+        manualAssignmentContainer.innerHTML = html;
+        manualAssignmentModal.style.display = 'block';
+    });
+
+    saveManualAssignmentButton?.addEventListener('click', () => {
+        // Collect selected tasks for each team
+        const checkboxes = manualAssignmentContainer.querySelectorAll('input[type="checkbox"]:checked');
+        
+        // Reset selections
+        manualAssignments.forEach(a => a.selectedTasks = []);
+
+        checkboxes.forEach(cb => {
+            const teamId = parseInt(cb.dataset.teamId, 10);
+            const taskName = cb.dataset.taskName;
+            const taskDescription = unescape(cb.dataset.taskDescription);
+            
+            manualAssignments[teamId].selectedTasks.push({
+                name: taskName,
+                description: taskDescription
+            });
+        });
+
+        // Build result display
+        lastAssignments = [];
+        const cards = [];
+
+        manualAssignments.forEach((assignment, idx) => {
+            if (assignment.selectedTasks.length === 0) {
+                cards.push(`
+                    <div class="assignment-card">
+                        <p class="assignment-line">${assignment.group.join(', ')} — <strong>No tasks selected</strong></p>
+                    </div>
+                `);
+                return;
+            }
+
+            assignment.selectedTasks.forEach(task => {
+                const descriptionHtml = converter.makeHtml(task.description || '');
+                
+                const roles = ['Driver', 'Navigator'];
+                const membersWithRoles = assignment.group.map((name, i) => {
+                    if (assignment.group.length === 1) return name;
+                    const role = roles[i % 2];
+                    return `${name} (${role})`;
+                });
+
+                const assignmentId = lastAssignments.length;
+                lastAssignments.push({
+                    id: assignmentId,
+                    group: [...assignment.group],
+                    membersWithRoles: [...membersWithRoles],
+                    taskName: task.name,
+                    taskDescription: task.description || ''
+                });
+
+                cards.push(`
+                    <div class="assignment-card" data-assign-id="${assignmentId}">
+                        <p class="assignment-line" data-description="${escape(descriptionHtml)}">${membersWithRoles.join(', ')} — <strong>${task.name}</strong></p>
+                        <div class="guide-container">
+                            <div class="guide-loading">Generating guide with Ollama…</div>
+                            <div class="guide-content" id="guide-${assignmentId}"></div>
+                        </div>
+                    </div>
+                `);
+            });
+        });
+
+        resultDisplay.innerHTML = cards.join('');
+        
+        // Generate guides
+        const tasksFetchers = lastAssignments.map((a) => () => fetchOllamaGuideForAssignment(a));
+        runWithConcurrency(tasksFetchers, 2).catch(err => console.error('Guide generation error:', err));
+
+        manualAssignmentModal.style.display = 'none';
+    });
+
+    cancelManualAssignmentButton?.addEventListener('click', () => {
+        manualAssignmentModal.style.display = 'none';
+    });
+
+    manualModalCloseButton?.addEventListener('click', () => {
+        manualAssignmentModal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (e) => {
+        if (e.target === manualAssignmentModal) {
+            manualAssignmentModal.style.display = 'none';
+        }
+    });
 });
+
+function escape(text) {
+    return text.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+function unescape(text) {
+    return text.replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+}
