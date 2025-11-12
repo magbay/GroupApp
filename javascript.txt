@@ -1,0 +1,103 @@
+Console Log: Write a program that logs "Hello, World!" to the console
+Variables Declaration: Declare variables using var, let, and const and understand their differences
+Data Types: Create variables of different types (string, number, boolean, undefined, null)
+Arithmetic Operations: Perform basic math operations and log the results
+String Concatenation: Combine strings using the + operator
+Template Literals: Use backticks and ${} to create template strings
+typeof Operator: Use typeof to check the data type of different variables
+Type Coercion: Demonstrate implicit type conversion in JavaScript
+Boolean Logic: Create expressions using true and false values
+Comparison Operators: Use ==, ===, !=, !==, >, <, >=, <= operators
+If Statement: Write a simple if statement to check a condition
+If-Else Statement: Create a program with if-else branches
+Else-If Chain: Use multiple else-if conditions
+Ternary Operator: Use the conditional (ternary) operator ? :
+Switch Statement: Implement a switch statement with multiple cases
+Truthy and Falsy: Demonstrate which values are truthy and falsy
+Logical AND: Use the && operator to combine conditions
+Logical OR: Use the || operator for alternative conditions
+Logical NOT: Use the ! operator to negate conditions
+Short-Circuit Evaluation: Demonstrate && and || short-circuiting
+For Loop: Use a for loop to iterate from 1 to 10
+While Loop: Create a while loop with a counter
+Do-While Loop: Implement a do-while loop
+Break Statement: Use break to exit a loop early
+Continue Statement: Use continue to skip loop iterations
+Nested Loops: Create patterns using nested loops
+For-Of Loop: Iterate over array elements using for...of
+For-In Loop: Loop through object properties using for...in
+Loop Through String: Iterate through each character in a string
+Infinite Loop Prevention: Understand how to avoid infinite loops
+Function Declaration: Create a basic function and call it
+Function Parameters: Write a function that accepts parameters
+Return Values: Create a function that returns a value
+Default Parameters: Set default values for function parameters
+Arrow Functions: Convert regular functions to arrow function syntax
+Anonymous Functions: Create and use anonymous functions
+Function Expression: Assign a function to a variable
+IIFE: Create an Immediately Invoked Function Expression
+Callback Functions: Pass a function as an argument to another function
+Higher-Order Functions: Create functions that return other functions
+Create Array: Declare and initialize an array with elements
+Array Indexing: Access array elements using bracket notation
+Array Length: Get and use the length property of an array
+Push and Pop: Add and remove elements from the end of an array
+Shift and Unshift: Add and remove elements from the beginning of an array
+Array Splice: Use splice() to add or remove elements at any position
+Array Slice: Create a copy of part of an array using slice()
+Array Concat: Combine multiple arrays using concat()
+Array Join: Convert an array to a string using join()
+Array Reverse: Reverse the order of array elements
+Array Sort: Sort array elements (numbers and strings)
+Array IndexOf: Find the index of an element in an array
+Array Includes: Check if an array contains a specific element
+Array Find: Use find() to locate an element that matches a condition
+Array Filter: Create a new array with elements that pass a test
+Array Map: Transform array elements using map()
+Array Reduce: Aggregate array values using reduce()
+Array Every: Check if all elements pass a condition
+Array Some: Check if at least one element passes a condition
+Array ForEach: Execute a function for each array element
+Spread Operator: Use ... to expand array elements
+Array Destructuring: Extract array values into variables
+Create Object: Create an object with properties and methods
+Object Properties: Access object properties using dot and bracket notation
+Add Properties: Add new properties to an existing object
+Modify Properties: Change the value of object properties
+Delete Properties: Remove properties from an object
+Object Methods: Create and call methods on an object
+This Keyword: Use 'this' to refer to the current object
+Object Constructor: Create objects using constructor functions
+Object Literals: Use shorthand property and method syntax
+Computed Property Names: Use variables as object keys
+Object.keys(): Get an array of object property names
+Object.values(): Get an array of object values
+Object.entries(): Get key-value pairs as arrays
+Object.assign(): Copy properties from one object to another
+Object Destructuring: Extract object properties into variables
+Nested Objects: Create and access nested object structures
+JSON.stringify(): Convert objects to JSON strings
+JSON.parse(): Parse JSON strings into objects
+String Length: Get the length of a string
+String charAt: Access a character at a specific position
+String Concatenation Methods: Use concat() method
+String toUpperCase/toLowerCase: Convert string case
+String Trim: Remove whitespace from string ends
+String Slice: Extract part of a string
+String Substring: Get a substring using start and end positions
+String Replace: Replace part of a string with new text
+String Split: Split a string into an array
+String Includes: Check if a string contains a substring
+String StartsWith/EndsWith: Check string beginning or end
+String Repeat: Repeat a string multiple times
+String PadStart/PadEnd: Pad strings to a specific length
+String Search: Find the position of text in a string
+Template Literals Advanced: Use multi-line strings and expressions
+Math Object: Use Math.random(), Math.floor(), Math.ceil()
+Math.max and Math.min: Find maximum and minimum values
+Math.round: Round numbers to nearest integer
+Date Object: Create and work with Date objects
+Get Current Date: Display today's date
+Get Time Components: Extract year, month, day, hour, minute, second
+setTimeout: Execute code after a delay
+setInterval: Execute code repeatedly at intervals
