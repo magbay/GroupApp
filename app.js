@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const resultDisplay = document.getElementById('result');
     const groupSizeInput = document.getElementById('group-size');
     const uniqueTasksCheckbox = document.getElementById('unique-tasks');
+    const advancedModeCheckbox = document.getElementById('advanced-mode');
     const clearResultsButton = document.getElementById('clear-results');
     const exportResultsButton = document.getElementById('export-results');
 
@@ -304,7 +305,68 @@ document.addEventListener('DOMContentLoaded', async () => {
     function buildGuidePrompt(taskName, taskDescription, groupMembers) {
         const desc = taskDescription && taskDescription.trim().length > 0 ? taskDescription.trim() : '(no detailed description provided)';
         const members = groupMembers.join(', ');
-        return `You are a technical documentation expert. Create a step-by-step KB (Knowledge Base) article to help complete the task below.
+        const isAdvanced = advancedModeCheckbox?.checked || false;
+        
+        if (isAdvanced) {
+            return `You are an expert-level technical documentation specialist and security professional. Create a comprehensive, ADVANCED KB (Knowledge Base) article to help complete the task below. This guide should be TWICE the length of a standard guide and include expert-level knowledge, security considerations, advanced techniques, and deep technical details.
+
+Format your response EXACTLY like this structure:
+## Overview
+[Comprehensive 3-4 sentence summary covering the technical context, security implications, and what will be accomplished]
+
+## Prerequisites
+- [Detailed list of required tools with specific versions]
+- [Required permissions and access levels]
+- [Advanced knowledge requirements and technical background needed]
+- [Security considerations before starting]
+
+## Technical Background
+[2-3 paragraphs explaining the underlying technology, protocols, or concepts involved at an expert level]
+
+## Steps
+### Step 1: [Detailed Action Title]
+[In-depth instruction with technical reasoning, security implications, and best practices]
+**Security Note:** [Security considerations for this step]
+**Advanced Tip:** [Expert-level optimization or alternative approach]
+
+### Step 2: [Detailed Action Title]
+[In-depth instruction with technical reasoning, security implications, and best practices]
+**Security Note:** [Security considerations for this step]
+**Advanced Tip:** [Expert-level optimization or alternative approach]
+
+[Continue with 20-30 detailed steps as needed for comprehensive coverage]
+
+## Verification and Validation
+### Verification Steps
+[Detailed steps to confirm successful completion]
+
+### Troubleshooting Common Issues
+[List potential problems and expert-level solutions]
+
+### Performance Optimization
+[How to optimize the implementation]
+
+## Security Hardening
+[Additional security measures and hardening techniques specific to this task]
+
+## Advanced Scenarios
+[Complex use cases and edge cases with solutions]
+
+## Additional Resources
+- [Links to advanced documentation, RFCs, or technical papers]
+- [Industry best practices and compliance standards]
+- [Advanced tutorials and expert-level resources]
+
+## Expert Notes
+[Additional insights, caveats, or advanced considerations that experts should know]
+
+Task: ${taskName}
+Assigned to: ${members}
+Task details: ${desc}
+
+Make this guide comprehensive and detailed (20-30+ steps). Include detailed command examples with explanations, configuration files, security best practices, and advanced techniques throughout.`;
+        } else {
+            return `You are a technical documentation expert. Create a step-by-step KB (Knowledge Base) article to help complete the task below.
 
 Format your response EXACTLY like this structure:
 ## Overview
@@ -333,6 +395,7 @@ Assigned to: ${members}
 Task details: ${desc}
 
 Keep it concise (10-15 steps maximum). Include command examples in code blocks where relevant.`;
+        }
     }
 
     async function fetchOllamaGuideForAssignment(assignment) {
