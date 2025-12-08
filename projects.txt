@@ -1,0 +1,46 @@
+
+Basic SOHO Network Setup: Configure a single router and switch (using Cisco Packet Tracer or GNS3) with basic IP addressing, static routing, and default gateway settings.
+Subnetting Practice: Learn subnetting concepts and ideas, multiple examples and ways to understand the concepts.
+Switch Port Security: Configure a single switch to use Port Security to prevent MAC address spoofing and restrict access to a single device per port.
+Basic Telnet/SSH Access: Configure a router/switch for secure SSH (and insecure Telnet, for comparison) access, including setting up local user accounts and VTY lines.
+VLAN Configuration: Create multiple VLANs on a switch, assign ports to different VLANs, and configure inter-VLAN routing using a router-on-a-stick topology.
+Access Control Lists (ACLs): Configure standard and extended ACLs on a router to filter traffic based on source/destination IP addresses and protocols.
+DHCP Server Setup: Configure a router to act as a DHCP server, assigning IP addresses automatically to clients on the network.
+NAT Configuration: Implement Network Address Translation (NAT) and Port Address Translation (PAT) on a router to allow private network devices to access the internet.
+Router Password Recovery: Practice the password recovery procedure for Cisco routers and switches in a lab environment.
+Static Routing Configuration: Set up static routes between multiple routers to enable connectivity across different network segments.
+Default Route Configuration: Configure a default route on edge routers to direct all unknown traffic toward the ISP or gateway.
+Basic Wireless LAN Setup: Configure a wireless access point with SSID, WPA2 encryption, and basic security settings.
+Trunk Port Configuration: Configure trunk ports between switches to carry traffic for multiple VLANs.
+STP Configuration: Configure Spanning Tree Protocol to prevent network loops in a redundant switch topology.
+EtherChannel Setup: Bundle multiple physical links between switches into a single logical link for increased bandwidth and redundancy.
+Router Interface Configuration: Configure FastEthernet and GigabitEthernet interfaces with IP addresses and bring them up.
+Basic Network Troubleshooting: Use ping, traceroute, and show commands to diagnose and resolve basic connectivity issues.
+CDP and LLDP Configuration: Configure and use Cisco Discovery Protocol or Link Layer Discovery Protocol to discover neighboring devices.
+System Info Script: Write a Bash script to display key system information, including hostname, kernel version, disk usage, and current date/time upon execution.
+User Management Script: Create a simple script that automates the creation of a new user, sets a default password, and assigns the user to a specific group.
+Cron Job Scheduler: Set up a scheduled cron job to execute a basic task (like running a backup script or deleting old log files) at a specific time daily.
+File Permission Changer: Write a short script that changes the permissions (chmod) and ownership (chown) of a collection of files in a specific directory.
+Basic Apache Web Server Setup: Install and configure Apache web server on Linux, create a simple HTML page, and access it from a browser.
+Linux Package Management: Practice installing, updating, and removing packages using package managers like apt, yum, or dnf.
+Disk Management and Partitioning: Create new partitions on a disk using fdisk or parted, format them, and mount them to the filesystem.
+Linux Firewall Configuration: Configure iptables or firewalld to allow specific ports and block unwanted traffic.
+SSH Key-Based Authentication: Set up SSH key pairs for passwordless authentication between Linux systems.
+Basic Bash Scripting: Write scripts to automate common tasks like system updates, backups, and log rotation.
+File Compression and Archiving: Use tar, gzip, and bzip2 to compress and archive files and directories.
+Process Management: Learn to view running processes with ps, top, and htop, and manage them using kill and nice commands.
+Log File Analysis: Use grep, awk, and sed to search and parse system log files for troubleshooting.
+Network Configuration: Configure static IP addresses, DNS servers, and default gateways using network configuration files.
+System Backup Script: Create a script that backs up important directories to a remote location using rsync or scp.
+Service Management: Use systemctl or service commands to start, stop, enable, and disable system services.
+DNS Server Setup: Configure a basic DNS server using BIND or dnsmasq to resolve local domain names.
+NFS Share Configuration: Set up Network File System (NFS) shares to allow file sharing between Linux systems.
+Samba File Server: Configure Samba to share files between Linux and Windows systems on the network.
+System Monitoring Setup: Install and configure monitoring tools like Nagios or Zabbix to monitor system resources.
+User Quota Management: Implement disk quotas to limit the amount of disk space users can consume.
+FTP Server Setup: Install and configure an FTP server like vsftpd for file transfers.
+MySQL Database Installation: Install MySQL/MariaDB, create databases, tables, and users with proper permissions.
+System Performance Tuning: Analyze system performance using tools like vmstat, iostat, and sar, and make basic tuning adjustments.
+Sudo Configuration: Configure sudoers file to grant specific users elevated privileges for certain commands.
+Network Bonding: Configure network interface bonding for redundancy and increased throughput.
+SELinux/AppArmor Basics: Learn to enable, disable, and configure basic SELinux or AppArmor policies for enhanced security.

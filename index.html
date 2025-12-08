@@ -30,18 +30,28 @@
                 <ul id="name-list" class="scroll-list"></ul>
             </div>
             <div class="panel">
-                <h2>Tasks</h2>
-                <div class="tabs">
-                    <button class="tab-btn" data-file="ccna.txt">CCNA</button>
-                    <button class="tab-btn active" data-file="linux.txt">Linux</button>
-                    <button class="tab-btn" data-file="sysadmin.txt">Sysadmin</button>
-                    <button class="tab-btn" data-file="hacking.txt">Hacking</button>
-                    <button class="tab-btn" data-file="python.txt">Python</button>
-                    <button class="tab-btn" data-file="javascript.txt">JavaScript</button>
-                    <button class="tab-btn" data-file="ai.txt">AI</button>
+                <div class="task-project-header">
+                    <button id="tasks-toggle-btn" class="toggle-btn active">Tasks</button>
+                    <button id="projects-toggle-btn" class="toggle-btn">Projects</button>
                 </div>
-                <ul id="task-list" class="scroll-list"></ul>
-                <p class="hint">Edit tasks by modifying <code>ccna.txt</code>, <code>linux.txt</code>, <code>sysadmin.txt</code>, <code>hacking.txt</code>, <code>python.txt</code>, <code>javascript.txt</code>, or <code>ai.txt</code> (format: Task Name: description)</p>
+                <div id="tasks-section">
+                    <div class="tabs">
+                        <button class="tab-btn" data-file="ccna.txt">CCNA</button>
+                        <button class="tab-btn active" data-file="linux.txt">Linux</button>
+                        <button class="tab-btn" data-file="sysadmin.txt">Sysadmin</button>
+                        <button class="tab-btn" data-file="hacking.txt">Hacking</button>
+                        <button class="tab-btn" data-file="python.txt">Python</button>
+                        <button class="tab-btn" data-file="javascript.txt">JavaScript</button>
+                        <button class="tab-btn" data-file="ai.txt">AI</button>
+                    </div>
+                    <ul id="task-list" class="scroll-list"></ul>
+                    <p class="hint">Edit tasks by modifying <code>ccna.txt</code>, <code>linux.txt</code>, <code>sysadmin.txt</code>, <code>hacking.txt</code>, <code>python.txt</code>, <code>javascript.txt</code>, or <code>ai.txt</code> (format: Task Name: description)</p>
+                </div>
+                <div id="projects-section" style="display: none;">
+                    <ul id="project-list" class="scroll-list"></ul>
+                    <button id="generate-project-guide-btn" class="primary-action" style="margin-top: 1rem; width: 100%;">Generate Project Guide</button>
+                    <p class="hint">Edit projects by modifying <code>projects.txt</code> (format: Project Name: description)</p>
+                </div>
             </div>
             <div class="panel ai-panel">
                 <h2>Ask Ollama</h2>

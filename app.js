@@ -101,6 +101,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     const clearResultsButton = document.getElementById('clear-results');
     const exportResultsButton = document.getElementById('export-results');
 
+    // Task/Project toggle
+    const tasksToggleBtn = document.getElementById('tasks-toggle-btn');
+    const projectsToggleBtn = document.getElementById('projects-toggle-btn');
+    const tasksSection = document.getElementById('tasks-section');
+    const projectsSection = document.getElementById('projects-section');
+    const projectList = document.getElementById('project-list');
+    const generateProjectGuideBtn = document.getElementById('generate-project-guide-btn');
+    const projectGuideContainer = document.getElementById('project-guide-container');
+
+    console.log('Toggle buttons found:', { tasksToggleBtn, projectsToggleBtn, tasksSection, projectsSection });
+
     const taskModal = document.getElementById('task-modal');
     const taskDescriptionInput = document.getElementById('task-description');
     const saveTaskDescriptionButton = document.getElementById('save-task-description');
@@ -276,6 +287,685 @@ document.addEventListener('DOMContentLoaded', async () => {
             renderTasks();
         }
     };
+
+    // Load projects from projects.txt
+    let projects = [];
+    let lastSelectedProject = null;
+    const loadProjects = async () => {
+        try {
+            const response = await fetch('projects.txt');
+            if (!response.ok) {
+                projectList.innerHTML = '<li>No projects found</li>';
+                return;
+            }
+            const text = await response.text();
+            projects = text.split('\n').map(line => {
+                const [name, ...description] = line.split(':');
+                return { name: (name||'').trim(), description: (description||[]).join(':').trim() };
+            }).filter(project => project.name && !project.name.startsWith('#'));
+            
+            renderProjects();
+        } catch (error) {
+            console.error('Error loading projects:', error);
+            projectList.innerHTML = '<li>Error loading projects</li>';
+        }
+    };
+
+    const renderProjects = () => {
+        projectList.innerHTML = '';
+        projects.forEach((project, index) => {
+            const li = document.createElement('li');
+            li.innerHTML = `<span><strong>${project.name}</strong></span>`;
+            li.addEventListener('click', () => {
+                // Remove selected class from all items
+                projectList.querySelectorAll('li').forEach(item => item.classList.remove('selected'));
+                // Add selected class to clicked item
+                li.classList.add('selected');
+            });
+            projectList.appendChild(li);
+        });
+    };
+
+    // Toggle between Tasks and Projects
+    if (tasksToggleBtn && projectsToggleBtn) {
+        tasksToggleBtn.addEventListener('click', () => {
+            tasksToggleBtn.classList.add('active');
+            projectsToggleBtn.classList.remove('active');
+            tasksSection.style.display = 'block';
+            projectsSection.style.display = 'none';
+        });
+
+        projectsToggleBtn.addEventListener('click', () => {
+            projectsToggleBtn.classList.add('active');
+            tasksToggleBtn.classList.remove('active');
+            tasksSection.style.display = 'none';
+            projectsSection.style.display = 'block';
+            loadProjects();
+        });
+    }
+
+    // Build project guide prompt (Medium-style tutorial)
+    function buildProjectGuidePrompt(projectName, projectDescription) {
+        const desc = projectDescription && projectDescription.trim().length > 0 ? projectDescription.trim() : '(no detailed description provided)';
+        
+        return `You are a professional technical writer creating an in-depth, engaging tutorial guide in the style of popular Medium articles. Write in a conversational yet authoritative tone, using personal pronouns (you, we, I), storytelling elements, and practical examples. Make the content engaging, accessible, and comprehensive.
+
+Format your response EXACTLY like this structure:
+
+# ${projectName}: A Complete Guide
+
+## Introduction
+
+Hey there! Today we're going to dive deep into ${projectName}. Whether you're just getting started or looking to strengthen your understanding, this guide will walk you through everything you need to know.
+
+**What we'll cover in this guide:**
+- [Key topic 1]
+- [Key topic 2]
+- [Key topic 3]
+- [Continue with 5-8 main topics]
+
+**By the end of this tutorial, you'll be able to:**
+- [Specific outcome 1]
+- [Specific outcome 2]
+- [Continue with 5-7 outcomes]
+
+**Time to complete:** [Estimated time]
+**Difficulty level:** [Beginner/Intermediate/Advanced]
+
+---
+
+## Why This Matters
+
+Before we jump into the technical details, let's talk about why you should care about this.
+
+[Write 3-4 engaging paragraphs explaining:
+- The real-world problem this solves
+- Why professionals use this technology
+- How it fits into modern development
+- The career/skill benefits of learning this]
+
+**Real-world use case:** [Describe a concrete scenario where this is used in production]
+
+---
+
+## What You'll Need
+
+Here's what you should have ready before we begin:
+
+**Required:**
+- [Tool/software 1] - [Why you need it]
+- [Tool/software 2] - [Why you need it]
+- [Continue...]
+
+**Nice to have:**
+- [Optional tool 1]
+- [Optional tool 2]
+
+**Knowledge prerequisites:**
+You should be comfortable with [list basics]. Don't worry if you're not an expert—I'll explain everything as we go!
+
+---
+
+## Understanding the Fundamentals
+
+Let's start by understanding what we're actually working with here.
+
+### What is [Technology/Concept]?
+
+[Write 2-3 conversational paragraphs explaining the concept in plain English, using everyday analogies]
+
+Think of it like this: [Simple analogy that makes it relatable]
+
+### How Does It Work?
+
+Here's the interesting part. [Explain the underlying mechanism in 3-4 paragraphs, breaking down complexity into digestible pieces]
+
+**The key components are:**
+1. **[Component 1]** - [What it does in simple terms]
+2. **[Component 2]** - [What it does in simple terms]
+3. **[Component 3]** - [What it does in simple terms]
+
+### Why We Build It This Way
+
+You might be wondering why we don't just [alternative approach]. Good question! [Explain the reasoning behind the design choices]
+
+---
+
+## Let's Get Started: Part 1 - [Section Name]
+
+Alright, enough theory—let's build something!
+
+### Step 1: [First Action]
+
+First things first, we need to [action description]. Here's how:
+
+\\\`\\\`\\\`bash
+# [Command with descriptive comment]
+[actual command]
+\\\`\\\`\\\`
+
+**What's happening here?**
+When you run this command, [explain what happens step by step]. The \\\`[flag/option]\\\` tells it to [explanation], which is important because [reason].
+
+**You should see:**
+\\\`\\\`\\\`
+[Expected output]
+\\\`\\\`\\\`
+
+If you see something different, don't panic! [Common variation and what it means]
+
+### Step 2: [Next Action]
+
+Now that we've got [previous step result], let's [next action]. This is where things get interesting.
+
+\\\`\\\`\\\`python
+# [Descriptive comment explaining what this code does]
+[code example with inline comments]
+\\\`\\\`\\\`
+
+**Let's break this down line by line:**
+
+**Line 1:** \\\`[code snippet]\\\` - This [explanation]. We're using [approach] because [reason].
+
+**Line 2:** \\\`[code snippet]\\\` - Here we're [explanation]. Notice how [important detail]? That's crucial because [reason].
+
+**Line 3:** \\\`[code snippet]\\\` - [Continue detailed explanation]
+
+**Pro tip:** [Helpful insight or best practice]
+
+### Step 3: [Continue Pattern]
+
+[Continue with detailed, conversational explanations]
+
+[Include 8-12 major steps in Part 1]
+
+---
+
+## Part 2 - [Next Major Section]
+
+Great! You've made it through the basics. Now let's level up.
+
+### [Next Topic]
+
+Here's where most tutorials gloss over important details, but we won't do that. Let me explain [concept] properly.
+
+[Write detailed explanation in conversational style]
+
+**Here's the code:**
+
+\\\`\\\`\\\`javascript
+// [Comment explaining overall purpose]
+[code with extensive inline comments explaining each important line]
+\\\`\\\`\\\`
+
+**Wait, what's going on here?**
+
+I know that might look confusing at first. Let me walk you through it:
+
+1. First, we [action] - this sets up [thing]
+2. Then we [action] - this is important because [reason]
+3. Finally, we [action] - which gives us [result]
+
+**Common mistake alert!** 
+Many developers try to [common mistake]. Don't do this! It causes [problem] because [explanation]. Instead, always [correct approach].
+
+[Continue with detailed sections]
+
+---
+
+## Part 3 - [Advanced Topic]
+
+You're doing great! Now let's tackle something a bit more advanced.
+
+[Continue pattern with conversational tone and detailed explanations]
+
+[Include 15-20 major sections total across all parts]
+
+---
+
+## Putting It All Together: A Complete Example
+
+Let's build a real, working example from scratch. I'll walk you through every single line.
+
+**What we're building:** [Description of complete example]
+
+**Here's the full code:**
+
+\\\`\\\`\\\`python
+# [Comprehensive example with extensive comments]
+[complete, working code example]
+\\\`\\\`\\\`
+
+**Now let's understand every piece:**
+
+[Provide detailed walkthrough of entire example, explaining how all parts work together]
+
+**Testing it out:**
+
+Run this with:
+\\\`\\\`\\\`bash
+[command to run]
+\\\`\\\`\\\`
+
+You should see:
+\\\`\\\`\\\`
+[expected output]
+\\\`\\\`\\\`
+
+Awesome! If you got this working, you've just successfully [achievement]. That's a big deal!
+
+---
+
+## Common Issues and How to Fix Them
+
+Let me share some issues I've run into (and how I solved them).
+
+### Problem 1: [Common Error]
+
+**What you see:**
+\\\`\\\`\\\`
+[Error message]
+\\\`\\\`\\\`
+
+**What it means:**
+[Plain English explanation of what's wrong]
+
+**How to fix it:**
+[Step-by-step solution with explanation]
+
+**Why this happens:**
+[Root cause explanation]
+
+### Problem 2: [Another Common Issue]
+
+[Continue pattern for 6-8 common issues]
+
+---
+
+## Best Practices and Pro Tips
+
+Now that you've got the basics down, here are some tips I wish someone had told me when I was learning this:
+
+**1. [Best Practice Title]**
+[Explanation of why this matters and how to implement it]
+
+**2. [Best Practice Title]**
+[Continue with explanations]
+
+**3. Do this, not that:**
+❌ **Don't:** [Bad practice]
+✅ **Do:** [Good practice]
+**Why:** [Explanation]
+
+[Include 8-10 best practices]
+
+---
+
+## Taking It Further
+
+Congratulations! You've built [what they built]. But don't stop here—let's talk about what's next.
+
+### Ideas for Enhancement
+
+**Easy additions:**
+- [Enhancement 1] - [How it improves the project]
+- [Enhancement 2] - [How it improves the project]
+
+**Intermediate challenges:**
+- [Challenge 1] - [What you'll learn]
+- [Challenge 2] - [What you'll learn]
+
+**Advanced projects:**
+- [Advanced idea 1] - [Skills you'll practice]
+- [Advanced idea 2] - [Skills you'll practice]
+
+### Related Topics to Explore
+
+Now that you understand ${projectName}, you're ready to learn:
+- **[Related topic 1]** - [How it connects]
+- **[Related topic 2]** - [How it connects]
+- **[Related topic 3]** - [How it connects]
+
+---
+
+## Frequently Asked Questions
+
+**Q: [Common question]**
+A: [Detailed, helpful answer]
+
+**Q: [Another question]**
+A: [Detailed, helpful answer]
+
+[Include 8-10 FAQs]
+
+---
+
+## Resources and Further Reading
+
+Want to dive deeper? Here are my favorite resources:
+
+**Documentation:**
+- [Resource 1] - [What makes it useful]
+- [Resource 2] - [What makes it useful]
+
+**Tutorials and Courses:**
+- [Resource 1] - [Why I recommend it]
+- [Resource 2] - [Why I recommend it]
+
+**Community:**
+- [Forum/Community 1] - [What you'll find there]
+- [Forum/Community 2] - [What you'll find there]
+
+---
+
+## Wrapping Up
+
+Let's recap what we've covered today:
+
+✅ [Key learning 1]
+✅ [Key learning 2]
+✅ [Key learning 3]
+✅ [Continue with all major learnings]
+
+You've come a long way! When I first started with ${projectName}, I struggled with [relatable struggle]. But with practice, it becomes second nature.
+
+**Your next steps:**
+1. [Immediate next action]
+2. [Follow-up practice]
+3. [Advanced exploration]
+
+Remember, the best way to learn is by doing. Take this code, break it, fix it, and make it your own.
+
+**Got questions?** Drop them in the comments below, and I'll help you out!
+
+**Found this helpful?** Share it with someone who's learning ${projectName}!
+
+Happy coding! 🚀
+
+---
+
+*Project: ${projectName}*
+*Details: ${desc}*
+
+Write this as an engaging, comprehensive Medium-style tutorial with a conversational tone. Use personal pronouns, storytelling, practical examples, and detailed code explanations. Include 15-20 major sections with thorough walkthroughs, common pitfalls, best practices, and actionable next steps. Make it feel like a friendly expert is teaching the reader one-on-one.`;
+    }
+
+    // Generate project guide
+    async function generateProjectGuide(project) {
+        if (!project) return;
+
+        // Save for regeneration
+        lastSelectedProject = project;
+
+        // Display in results section instead
+        resultDisplay.innerHTML = `
+            <div class="assignment-card">
+                <p class="assignment-line"><strong>Project: ${project.name}</strong></p>
+                <div class="guide-container">
+                    <div class="guide-loading">Generating project guide with Ollama…</div>
+                    <div class="guide-content" id="project-guide-content"></div>
+                </div>
+                <button id="regenerate-project-btn" class="primary-action" style="margin-top: 1rem; display: none;">Regenerate Project Guide</button>
+            </div>
+        `;
+
+        const targetDiv = document.getElementById('project-guide-content');
+        const loadingDiv = targetDiv.previousElementSibling;
+
+        // Check cache first
+        try {
+            const cacheResponse = await fetch('http://10.207.20.29:8001/api/cache/get', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    task_name: project.name,
+                    task_description: project.description,
+                    is_advanced: false,
+                    model_name: currentOllamaModel,
+                    is_project: true
+                })
+            });
+
+            if (cacheResponse.ok) {
+                const cacheData = await cacheResponse.json();
+                if (cacheData.found && cacheData.guide_content) {
+                    const html = converter.makeHtml(cacheData.guide_content);
+                    targetDiv.innerHTML = html;
+                    if (loadingDiv) loadingDiv.style.display = 'none';
+                    
+                    // Show regenerate button
+                    const regenerateBtn = document.getElementById('regenerate-project-btn');
+                    if (regenerateBtn) {
+                        regenerateBtn.style.display = 'block';
+                        regenerateBtn.onclick = () => regenerateProjectGuide(project);
+                    }
+                    return;
+                }
+            }
+        } catch (err) {
+            console.error('Cache check error:', err);
+        }
+
+        // Generate new guide
+        const prompt = buildProjectGuidePrompt(project.name, project.description);
+
+        let textBuffer = '';
+        try {
+            const fetchUrl = 'http://10.207.20.29:8001/api/generate';
+            const headers = {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            };
+
+            if (currentOllamaUrl && currentOllamaUrl !== fetchUrl) {
+                headers['X-Ollama-Target'] = currentOllamaUrl;
+            }
+
+            const response = await fetch(fetchUrl, {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify({
+                    model: currentOllamaModel,
+                    prompt: prompt,
+                    stream: true
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                const chunk = decoder.decode(value, { stream: true });
+                const lines = chunk.split('\n');
+
+                for (const line of lines) {
+                    if (line.trim()) {
+                        try {
+                            const data = JSON.parse(line);
+                            if (data.response) {
+                                textBuffer += data.response;
+                            }
+                        } catch (e) {
+                            // Ignore parse errors
+                        }
+                    }
+                }
+            }
+
+            // Remove thinking tags and render
+            const cleanedText = textBuffer.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
+            
+            // Save to cache
+            try {
+                await fetch('http://10.207.20.29:8001/api/cache/save', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        task_name: project.name,
+                        task_description: project.description,
+                        is_advanced: false,
+                        model_name: currentOllamaModel,
+                        guide_content: cleanedText,
+                        is_project: true
+                    })
+                });
+            } catch (cacheErr) {
+                console.error('Failed to save to cache:', cacheErr);
+            }
+
+            const html = converter.makeHtml(cleanedText);
+            targetDiv.innerHTML = html;
+            if (loadingDiv) loadingDiv.style.display = 'none';
+            
+            // Show regenerate button
+            const regenerateBtn = document.getElementById('regenerate-project-btn');
+            if (regenerateBtn) {
+                regenerateBtn.style.display = 'block';
+                regenerateBtn.onclick = () => regenerateProjectGuide(project);
+            }
+
+        } catch (error) {
+            console.error('Error generating project guide:', error);
+            targetDiv.innerHTML = `<p class="error">Error generating guide: ${error.message}</p>`;
+            if (loadingDiv) loadingDiv.style.display = 'none';
+        }
+    }
+
+    // Regenerate project guide (skip cache)
+    async function regenerateProjectGuide(project) {
+        if (!project) return;
+
+        // Display in results section
+        resultDisplay.innerHTML = `
+            <div class="assignment-card">
+                <p class="assignment-line"><strong>Project: ${project.name}</strong> (Regenerating...)</p>
+                <div class="guide-container">
+                    <div class="guide-loading">Regenerating project guide with Ollama…</div>
+                    <div class="guide-content" id="project-guide-content"></div>
+                </div>
+                <button id="regenerate-project-btn" class="primary-action" style="margin-top: 1rem; display: none;">Regenerate Project Guide</button>
+            </div>
+        `;
+
+        const targetDiv = document.getElementById('project-guide-content');
+        const loadingDiv = targetDiv.previousElementSibling;
+
+        // Generate new guide (skip cache lookup)
+        const prompt = buildProjectGuidePrompt(project.name, project.description);
+
+        let textBuffer = '';
+        try {
+            const fetchUrl = 'http://10.207.20.29:8001/api/generate';
+            const headers = {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            };
+
+            if (currentOllamaUrl && currentOllamaUrl !== fetchUrl) {
+                headers['X-Ollama-Target'] = currentOllamaUrl;
+            }
+
+            const response = await fetch(fetchUrl, {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify({
+                    model: currentOllamaModel,
+                    prompt: prompt,
+                    stream: true
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                const chunk = decoder.decode(value, { stream: true });
+                const lines = chunk.split('\n');
+
+                for (const line of lines) {
+                    if (line.trim()) {
+                        try {
+                            const data = JSON.parse(line);
+                            if (data.response) {
+                                textBuffer += data.response;
+                            }
+                        } catch (e) {
+                            // Ignore parse errors
+                        }
+                    }
+                }
+            }
+
+            // Remove thinking tags and render
+            const cleanedText = textBuffer.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
+            
+            // Update cache with new content
+            try {
+                await fetch('http://10.207.20.29:8001/api/cache/save', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        task_name: project.name,
+                        task_description: project.description,
+                        is_advanced: false,
+                        model_name: currentOllamaModel,
+                        guide_content: cleanedText,
+                        is_project: true
+                    })
+                });
+            } catch (cacheErr) {
+                console.error('Failed to save to cache:', cacheErr);
+            }
+
+            const html = converter.makeHtml(cleanedText);
+            targetDiv.innerHTML = html;
+            if (loadingDiv) loadingDiv.style.display = 'none';
+            
+            // Show regenerate button
+            const regenerateBtn = document.getElementById('regenerate-project-btn');
+            if (regenerateBtn) {
+                regenerateBtn.style.display = 'block';
+                regenerateBtn.onclick = () => regenerateProjectGuide(project);
+            }
+
+        } catch (error) {
+            console.error('Error regenerating project guide:', error);
+            targetDiv.innerHTML = `<p class="error">Error regenerating guide: ${error.message}</p>`;
+            if (loadingDiv) loadingDiv.style.display = 'none';
+        }
+    }
+
+    // Handle project guide generation button
+    if (generateProjectGuideBtn) {
+        generateProjectGuideBtn.addEventListener('click', () => {
+            const selectedLi = projectList.querySelector('li.selected');
+            if (!selectedLi) {
+                alert('Please select a project first.');
+                return;
+            }
+
+            const projectName = selectedLi.querySelector('strong').textContent;
+            const project = projects.find(p => p.name === projectName);
+
+            if (project) {
+                generateProjectGuide(project);
+            }
+        });
+    }
 
     // Wire tab buttons and regenerate buttons
     document.addEventListener('click', (e) => {
