@@ -10,7 +10,7 @@ PROXY_PY="$ROOT_DIR/proxy.py"
 STATIC_DIR="$ROOT_DIR"
 PROXY_PORT=8001
 STATIC_PORT=8000
-HOST_IP="10.107.101.37"
+HOST_IP="10.207.20.29"
 
 echo "Starting GroupApp services..."
 

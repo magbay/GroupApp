@@ -1,4 +1,91 @@
 document.addEventListener('DOMContentLoaded', async () => {
+    // SSH selector functionality
+    const sshDropdown = document.getElementById('ssh-dropdown');
+    const sshCopyBtn = document.getElementById('ssh-copy-btn');
+    
+    // Check IP accessibility and populate dropdown
+    async function checkIPAccessibility(ip) {
+        try {
+            // Try to connect to port 22 (SSH) via a simple HTTP check
+            // We'll use port 8000 as a proxy check since we can't directly check SSH from browser
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 2000); // 2 second timeout
+            
+            const response = await fetch(`http://${ip}:22`, {
+                method: 'HEAD',
+                mode: 'no-cors',
+                signal: controller.signal
+            });
+            clearTimeout(timeoutId);
+            return true;
+        } catch (error) {
+            // Even CORS errors mean the host is reachable
+            if (error.name !== 'AbortError') {
+                return true; // Host responded but blocked by CORS (still accessible)
+            }
+            return false; // Timeout or network error
+        }
+    }
+    
+    async function populateSSHDropdown() {
+        const ips = [
+            '10.207.20.18', '10.207.20.24', '10.207.20.25', '10.207.20.26',
+            '10.207.20.27', '10.207.20.28', '10.207.20.29', '10.207.20.20'
+        ];
+        
+        sshDropdown.innerHTML = '<option value="">Checking servers...</option>';
+        
+        const accessibleIPs = [];
+        
+        // Check all IPs in parallel
+        const checks = ips.map(async (ip) => {
+            const accessible = await checkIPAccessibility(ip);
+            if (accessible) {
+                accessibleIPs.push(ip);
+            }
+        });
+        
+        await Promise.all(checks);
+        
+        // Sort IPs numerically
+        accessibleIPs.sort((a, b) => {
+            const numA = parseInt(a.split('.').pop());
+            const numB = parseInt(b.split('.').pop());
+            return numA - numB;
+        });
+        
+        // Populate dropdown with accessible IPs
+        if (accessibleIPs.length > 0) {
+            sshDropdown.innerHTML = '<option value="">Select a server...</option>';
+            accessibleIPs.forEach(ip => {
+                const option = document.createElement('option');
+                option.value = `ssh user1@${ip}`;
+                option.textContent = ip;
+                sshDropdown.appendChild(option);
+            });
+        } else {
+            sshDropdown.innerHTML = '<option value="">No servers accessible</option>';
+        }
+    }
+    
+    if (sshDropdown) {
+        populateSSHDropdown();
+    }
+    
+    if (sshCopyBtn && sshDropdown) {
+        sshCopyBtn.addEventListener('click', () => {
+            const command = sshDropdown.value;
+            if (command) {
+                // Extract IP from command (ssh user1@IP)
+                const ip = command.split('@')[1];
+                // Use ssh:// protocol which can work with PuTTY if configured
+                window.location.href = `ssh://user1@${ip}`;
+            } else {
+                alert('Please select a server first.');
+            }
+        });
+    }
+
     const nameForm = document.getElementById('name-form');
     const nameInput = document.getElementById('name-input');
     const nameList = document.getElementById('name-list');
@@ -74,7 +161,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         } catch (error) {
             console.error('Error loading models.txt:', error);
-            currentOllamaUrl = 'http://10.107.101.37:8001'; // fallback
+            currentOllamaUrl = 'http://10.207.20.29:8001'; // fallback
             currentOllamaModel = 'qwen3:8b';
         }
     }
@@ -205,7 +292,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (assignment) {
                 // Delete from cache and regenerate
                 const isAdvanced = advancedModeCheckbox?.checked || false;
-                fetch('http://10.107.101.37:8001/api/cache/delete', {
+                fetch('http://10.207.20.29:8001/api/cache/delete', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -506,7 +593,7 @@ Keep it concise (10-15 steps maximum). Include command examples in code blocks w
         // Check cache first (unless force regenerate)
         if (!forceRegenerate) {
             try {
-                const cacheResponse = await fetch('http://10.107.101.37:8001/api/cache/get', {
+                const cacheResponse = await fetch('http://10.207.20.29:8001/api/cache/get', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -548,7 +635,7 @@ Keep it concise (10-15 steps maximum). Include command examples in code blocks w
         let textBuffer = '';
         try {
             // Always use local proxy, send target URL in header
-            const fetchUrl = 'http://10.107.101.37:8001/api/generate';
+            const fetchUrl = 'http://10.207.20.29:8001/api/generate';
             const headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
@@ -599,7 +686,7 @@ Keep it concise (10-15 steps maximum). Include command examples in code blocks w
             
             // Save to cache
             try {
-                await fetch('http://10.107.101.37:8001/api/cache/save', {
+                await fetch('http://10.207.20.29:8001/api/cache/save', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -708,7 +795,7 @@ Keep it concise (10-15 steps maximum). Include command examples in code blocks w
 
         try {
             // Always use local proxy, send target URL in header
-            const fetchUrl = 'http://10.107.101.37:8001/api/generate';
+            const fetchUrl = 'http://10.207.20.29:8001/api/generate';
             const headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'

@@ -4,10 +4,12 @@
 # Only ONE line should be uncommented at a time
 
 # Local Ollama
-# http://10.107.101.37:8001|qwen3:8b
+# http://10.207.20.29:8001|qwen3:8b
 
 # Ngrok Tunnel (active)
-https://synodic-maximilian-feudally.ngrok-free.dev|gpt-oss:20b
+https://synodic-maximilian-feudally.ngrok-free.dev|deepseek-r1:32b
+
+
 
 
 

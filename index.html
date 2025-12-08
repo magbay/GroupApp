@@ -9,7 +9,14 @@
 </head>
 <body>
     <div class="app-header">
-        <h1>IT Security Labs</h1>
+        <div class="ssh-selector">
+            <label for="ssh-dropdown"><strong>SSH Connection:</strong></label>
+            <select id="ssh-dropdown">
+                <option value="">Checking servers...</option>
+            </select>
+            <button id="ssh-copy-btn">Connect</button>
+            <small>Password: 12341234</small>
+        </div>
     </div>
     <div class="container">
         <div class="layout-row">

@@ -11,10 +11,10 @@ import time
 import sys
 
 # Configuration
-PROXY_URL = 'http://10.107.101.37:8001'
+PROXY_URL = 'http://10.207.20.29:8001'
 OLLAMA_TARGET = 'https://synodic-maximilian-feudally.ngrok-free.dev'  # Ollama endpoint to use
 TASK_FILES = ['ccna.txt', 'linux.txt', 'sysadmin.txt', 'hacking.txt', 'python.txt', 'javascript.txt', 'ai.txt']
-MODEL_NAME = 'gpt-oss:20b'  # Update if using different model
+MODEL_NAME = 'deepseek-r1:32b'  # Update if using different model
 IS_ADVANCED = True  # Advanced mode
 
 def load_tasks_from_file(filename):

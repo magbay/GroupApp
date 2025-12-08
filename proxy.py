@@ -14,7 +14,7 @@ except ImportError:
 app = Flask(__name__)
 
 # Default Ollama URL
-DEFAULT_OLLAMA_URL = 'http://10.107.101.37:11434/api/generate'
+DEFAULT_OLLAMA_URL = 'http://10.207.20.29:11434/api/generate'
 
 # Simple in-memory SSE broadcaster
 clients = []

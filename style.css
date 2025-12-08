@@ -14,7 +14,52 @@ body {
     position: sticky;
     top: 0;
     z-index: 100;
-    text-align: center;
+}
+
+.ssh-selector {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+}
+
+.ssh-selector label {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.ssh-selector select {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    background: white;
+    color: #2f3542;
+    font-size: 1rem;
+    cursor: pointer;
+    min-width: 200px;
+}
+
+.ssh-selector button {
+    padding: 0.5rem 1.25rem;
+    border: none;
+    border-radius: 6px;
+    background: #10b981;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.ssh-selector button:hover {
+    background: #059669;
+}
+
+.ssh-selector small {
+    font-size: 0.9rem;
+    opacity: 0.95;
+    white-space: nowrap;
 }
 
 .app-header h1 {
@@ -22,6 +67,57 @@ body {
     font-size: 1.4rem;
     font-weight: 600;
     letter-spacing: .5px;
+    text-align: right;
+}
+
+.proxmox-link {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    text-align: left;
+    line-height: 1.8;
+}
+
+.proxmox-link div {
+    white-space: nowrap;
+}
+
+.linux-link {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    text-align: left;
+    line-height: 1.8;
+    white-space: nowrap;
+}
+
+.proxmox-credentials {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    line-height: 1.5;
+    white-space: nowrap;
+}
+
+.proxmox-link strong {
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 0.2rem;
+}
+
+.proxmox-link a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.proxmox-link a:hover {
+    text-decoration: underline;
+}
+
+.proxmox-link small {
+    font-size: 0.85rem;
+    opacity: 0.9;
 }
 .container {
     max-width: 1400px;
