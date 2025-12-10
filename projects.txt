@@ -47,3 +47,6 @@ SELinux/AppArmor Basics: Learn to enable, disable, and configure basic SELinux o
 Cisco 1941: Basic capabilities, Initial connection install and configuration, basic usage and best practices, how to setup in homelab.
 Cisco 3750: Basic capabilities, Initial connection install and configuration, basic usage and best practices, how to setup in homelab.
 Cisco 2960: Basic capabilities, Initial connection install and configuration, basic usage and best practices, how to setup in homelab.
+HTML Basics: Create a guide to design a basic html profile page, best and current practices, enough info for beginner.
+Python Basics: Python basic usage and tutorial, common easy cheat cheat and some basic programs, enough info for beginner.
+Linux Basics: Most commonly used linux commands, need to know linux commands in real world workplace, enough info for beginner.
