@@ -44,3 +44,6 @@ System Performance Tuning: Analyze system performance using tools like vmstat, i
 Sudo Configuration: Configure sudoers file to grant specific users elevated privileges for certain commands.
 Network Bonding: Configure network interface bonding for redundancy and increased throughput.
 SELinux/AppArmor Basics: Learn to enable, disable, and configure basic SELinux or AppArmor policies for enhanced security.
+Cisco 1941: Basic capabilities, Initial connection install and configuration, basic usage and best practices, how to setup in homelab.
+Cisco 3750: Basic capabilities, Initial connection install and configuration, basic usage and best practices, how to setup in homelab.
+Cisco 2960: Basic capabilities, Initial connection install and configuration, basic usage and best practices, how to setup in homelab.
