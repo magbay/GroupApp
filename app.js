@@ -1484,6 +1484,20 @@ Keep it concise (10-15 steps maximum). Include command examples in code blocks w
         ollamaLoading.style.display = 'flex';
 
         try {
+            // Get current endpoint from dropdown
+            const selector = document.getElementById('ollama-endpoint-select');
+            const selectedEndpoint = selector.value;
+            
+            if (!selectedEndpoint) {
+                ollamaResponse.innerHTML = 'No Ollama endpoint configured. Check models.txt';
+                ollamaLoading.style.display = 'none';
+                return;
+            }
+            
+            // Parse the selected endpoint
+            const config = parseEndpointConfig(selectedEndpoint);
+            console.log('Ask Ollama - Using URL:', config.url, 'Model:', config.model);
+            
             // Always use local proxy, send target URL in header
             const fetchUrl = 'http://10.207.20.29:8001/api/generate';
             const headers = {
@@ -1492,15 +1506,16 @@ Keep it concise (10-15 steps maximum). Include command examples in code blocks w
             };
             
             // If using external URL (ngrok), send it in header for proxy to forward
-            if (currentOllamaUrl.startsWith('https://')) {
-                headers['X-Ollama-Target'] = currentOllamaUrl;
+            if (config.url.startsWith('https://')) {
+                headers['X-Ollama-Target'] = config.url;
+                console.log('Ask Ollama - Added X-Ollama-Target header:', config.url);
             }
             
             const response = await fetch(fetchUrl, {
                 method: 'POST',
                 headers: headers,
                 body: JSON.stringify({
-                    model: currentOllamaModel,
+                    model: config.model,
                     prompt: prompt
                 })
             });
